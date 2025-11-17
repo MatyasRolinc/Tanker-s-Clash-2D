@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
     private Rigidbody2D rb;
+    
 
     void Start()
     {
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
             rotateInput = -1f;
 
         MoveTank(moveInput, rotateInput);
+
+        
     }
 
     void MoveTank(float moveInput, float rotateInput)
