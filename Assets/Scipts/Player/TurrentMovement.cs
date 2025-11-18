@@ -4,11 +4,15 @@ public class TurrentMovement: MonoBehaviour
 {
     public GameObject TankShellPrefab;
     public Transform spawnPoint;
+    public float shellSpeed = 10f;
 
       void Update()
     {
         Turn();
-        Fire();
+        if (Input.GetMouseButtonDown(0))
+        {
+            Fire();
+        }
     }
 
     public void Turn()
@@ -20,9 +24,13 @@ public class TurrentMovement: MonoBehaviour
     }
     public void Fire()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-           GameObject bullet = Instantiate(TankShellPrefab, spawnPoint.position, transform.rotation);
-        }
+        // vytvoří střelu na pozici a s rotací kanónu
+        GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        // vezme její rigidbody
+        Rigidbody2D rb = shell.GetComponent<Rigidbody2D>();
+
+        // tady je důležité !!! ↓↓↓
+        rb.linearVelocity = spawnPoint.up * shellSpeed;
     }
 }

@@ -278,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241223326943534366}
   - component: {fileID: 1868140069255579797}
+  - component: {fileID: 5192724434855658855}
   m_Layer: 0
   m_Name: enemyTurretHeavy
   m_TagString: Untagged
@@ -355,3 +356,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5192724434855658855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7209004422686420010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  rotationSpeed: 120
+  angleOffset: 90

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6042929785354799687}
   - component: {fileID: 6790664600104605839}
+  - component: {fileID: 8048450851494588887}
   m_Layer: 0
   m_Name: enemyTurretMedium_0
   m_TagString: Untagged
@@ -87,6 +88,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8048450851494588887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763918688351869352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  rotationSpeed: 120
+  angleOffset: 90
 --- !u!1 &7733415170747240997
 GameObject:
   m_ObjectHideFlags: 0

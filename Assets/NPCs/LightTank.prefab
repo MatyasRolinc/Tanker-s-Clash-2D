@@ -278,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5747374996133744641}
   - component: {fileID: 2167731065365029923}
+  - component: {fileID: 2797083043929770567}
   m_Layer: 0
   m_Name: enemyTurretLight_0
   m_TagString: Untagged
@@ -355,3 +356,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2797083043929770567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182331709935905083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  rotationSpeed: 120
+  angleOffset: 90

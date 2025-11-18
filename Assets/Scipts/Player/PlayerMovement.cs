@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
     
 
     void Start()
