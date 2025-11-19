@@ -3,6 +3,7 @@ using UnityEngine;
 public class TankShellScript : MonoBehaviour
 {
     Rigidbody2D rb;
+    
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,5 +15,10 @@ public class TankShellScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
     }
 }

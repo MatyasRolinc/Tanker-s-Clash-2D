@@ -6,7 +6,8 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 2f;           // rychlost pohybu
     public float moveTime = 2f;            // jak dlouho pojede
     public float stopTime = 1f;            // jak dlouho stojí
-    public float rotationSpeed = 180f;     // rychlost otáčení (stupně za sekundu)
+    public float rotationSpeed = 180f; 
+    public int health = 3;    // rychlost otáčení (stupně za sekundu)
 
     private Rigidbody2D rb;
     private bool isMoving = true;
@@ -71,6 +72,19 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("TankShell"))
+        {
+            health -= 1;
+            Destroy(collision.gameObject); // zničit projektil
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
+    public int health = 5;
     Rigidbody2D rb;
     
 
@@ -40,5 +41,19 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + direction * moveInput * moveSpeed * Time.deltaTime);
         rb.MoveRotation(rb.rotation + rotateInput * rotationSpeed * Time.deltaTime);
     }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("TankShell"))
+        {
+            health -= 1;
+            Destroy(collision.gameObject); // zničit projektil
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 }
+
 
