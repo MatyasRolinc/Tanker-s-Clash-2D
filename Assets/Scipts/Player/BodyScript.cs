@@ -1,22 +1,29 @@
-    using UnityEngine;
+using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class BodyScript : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
     public int health = 5;
-    Rigidbody2D rb;
-    
+    public int maxHealth = 5;
+
+    private Rigidbody2D rb;
+    private float moveInput = 0f;
+    private float rotateInput = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        health = maxHealth;
     }
 
     void Update()
     {
-        float moveInput = 0f;
-        float rotateInput = 0f;
+        // pouze čteme vstup zde
+        moveInput = 0f;
+        rotateInput = 0f;
 
         if (Input.GetKey(KeyCode.S))
             moveInput = 1f;
@@ -27,19 +34,22 @@ public class BodyScript : MonoBehaviour
             rotateInput = 1f;
         else if (Input.GetKey(KeyCode.D))
             rotateInput = -1f;
-
-        MoveTank(moveInput, rotateInput);
-
-        
     }
 
-    void MoveTank(float moveInput, float rotateInput)
+    void FixedUpdate()
     {
-        // 🔥 používáme transform.right, protože model míří DOPRAVA
-        Vector2 direction = transform.right;
+        MoveTank(moveInput, rotateInput);
+    }
 
-        rb.MovePosition(rb.position + direction * moveInput * moveSpeed * Time.deltaTime);
-        rb.MoveRotation(rb.rotation + rotateInput * rotationSpeed * Time.deltaTime);
+    // veřejná metoda pro pohyb přes Rigidbody2D
+    public void MoveTank(float moveValue, float rotateValue)
+    {
+        Vector2 direction = transform.right; // nebo transform.up podle modelu
+        Vector2 newPos = rb.position + direction * moveValue * moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
+
+        float newRot = rb.rotation + rotateValue * rotationSpeed * Time.fixedDeltaTime;
+        rb.MoveRotation(newRot);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

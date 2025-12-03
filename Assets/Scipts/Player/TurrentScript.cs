@@ -14,9 +14,7 @@ public class TurrentScript: MonoBehaviour
 
     void Start()
     {
-        // ...existing code...
         nextFireTime = 0f;
-        // ...existing code...
     }
 
     void Update()
@@ -42,10 +40,10 @@ public class TurrentScript: MonoBehaviour
                 return; // ještě "reloaduje"
 
             GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
-            Rigidbody2D rb = shell.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            Rigidbody2D rbShell = shell.GetComponent<Rigidbody2D>();
+            if (rbShell != null)
             {
-                rb.linearVelocity = spawnPoint.up * shellSpeed;
+                rbShell.linearVelocity = spawnPoint.up * shellSpeed;
             }
 
             // nastavíme příští čas kdy lze znovu střílet
