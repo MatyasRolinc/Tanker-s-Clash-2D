@@ -81,8 +81,17 @@ public class EnemyMovement : MonoBehaviour
         {
             health -= 1;
             Destroy(collision.gameObject); // zničit projektil
+
             if (health <= 0)
             {
+                // před zničením dej odměnu pokud má nepřítel komponentu EnemyReward
+                var reward = GetComponent<EnemyReward>();
+                if (reward != null)
+                {
+                    // předáváme projektil jako "killer" - EnemyReward si poradí a případně najde hráče
+                    reward.GiveReward(collision.gameObject);
+                }
+
                 Destroy(gameObject);
             }
         }
