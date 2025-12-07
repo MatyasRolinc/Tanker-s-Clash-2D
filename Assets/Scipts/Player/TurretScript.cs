@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class TurrentScript: MonoBehaviour
+public class TurrentScript : MonoBehaviour
 {
+    // kde se spawnují střely
     public GameObject TankShellPrefab;
     public Transform spawnPoint;
-    public float shellSpeed = 10f;
 
-    // čas (sekundy) potřebný mezi dvěma výstřely (reload cooldown)
-    public float reloadTime = 0.75f;
+    // reference na PlayerStats (nastav v Inspectoru nebo najde parent)
+    public PlayerStats stats;
 
-    // interní čas, kdy je možné znovu střílet
+    // interní cooldown
     private float nextFireTime = 0f;
 
     void Start()
     {
+        if (stats == null)
+            stats = GetComponentInParent<PlayerStats>();
+
         nextFireTime = 0f;
     }
 
@@ -33,25 +36,25 @@ public class TurrentScript: MonoBehaviour
 
     public void Fire()
     {
-        // klik pro výstřel, ne držení; kontrola cooldownu
         if (Input.GetMouseButtonDown(0))
         {
-            if (Time.time < nextFireTime)
-                return; // ještě "reloaduje"
+            float useReload = (stats != null) ? stats.reloadTime : 0.75f;
+            float useShellSpeed = (stats != null) ? stats.shellSpeed : 10f;
 
-            GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
-            Rigidbody2D rbShell = shell.GetComponent<Rigidbody2D>();
-            if (rbShell != null)
+            if (Time.time < nextFireTime) return;
+
+            if (TankShellPrefab != null && spawnPoint != null)
             {
-                rbShell.linearVelocity = spawnPoint.up * shellSpeed;
+                GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
+                Rigidbody2D rbShell = shell.GetComponent<Rigidbody2D>();
+                if (rbShell != null)
+                    rbShell.linearVelocity = spawnPoint.up * useShellSpeed;
             }
 
-            // nastavíme příští čas kdy lze znovu střílet
-            nextFireTime = Time.time + reloadTime;
+            nextFireTime = Time.time + useReload;
         }
     }
 
-    // volitelné: zbývající čas reloadu (pro UI upgrade později)
     public float RemainingReloadTime()
     {
         return Mathf.Max(0f, nextFireTime - Time.time);

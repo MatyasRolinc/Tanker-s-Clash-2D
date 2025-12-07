@@ -100,9 +100,10 @@ GameObject:
   - component: {fileID: 1178696644961710848}
   - component: {fileID: 2756379541789085993}
   - component: {fileID: 6688969505793600279}
+  - component: {fileID: 7458668899921708038}
   m_Layer: 0
   m_Name: LightTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,9 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f100f244f488f3143b881f6e8cbd528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  moveTime: 2
-  stopTime: 1
+  moveSpeed: 7
+  moveTime: 5
+  stopTime: 0.5
   rotationSpeed: 180
   health: 3
 --- !u!212 &2756379541789085993
@@ -269,6 +270,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.8152285, y: 6.8554068}
   m_EdgeRadius: 0
+--- !u!114 &7458668899921708038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632477817979749843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8bbd86b6afde9340898e1cf33d6e3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardAmount: 10
 --- !u!1 &6025358514233349017
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +418,7 @@ MonoBehaviour:
   target: {fileID: 0}
   firePoint: {fileID: 3546316832721038241}
   shellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
-  shellSpeed: 8
+  shellSpeed: 20
   rotationSpeed: 120
   angleOffset: 90
-  shootInterval: 5
+  shootInterval: 2

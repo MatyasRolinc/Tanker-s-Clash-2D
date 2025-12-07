@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 6394230338361738727}
   m_Layer: 0
   m_Name: HunterTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,6 +254,7 @@ MonoBehaviour:
   moveTime: 2
   stopTime: 1
   rotationSpeed: 180
+  health: 5
 --- !u!212 &5047967294122773439
 SpriteRenderer:
   m_ObjectHideFlags: 0

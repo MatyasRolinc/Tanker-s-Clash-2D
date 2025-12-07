@@ -91,6 +91,10 @@ public class EnemyMovement : MonoBehaviour
                     // předáváme projektil jako "killer" - EnemyReward si poradí a případně najde hráče
                     reward.GiveReward(collision.gameObject);
                 }
+                if (LevelManager.Instance != null)
+                {
+                    LevelManager.Instance.EnemyKilled();
+                }
 
                 Destroy(gameObject);
             }

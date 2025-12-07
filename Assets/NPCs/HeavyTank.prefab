@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5794441692420161709}
   m_Layer: 0
   m_Name: HeavyTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   moveTime: 2
   stopTime: 1
   rotationSpeed: 180
+  health: 3
 --- !u!61 &5794441692420161709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -369,5 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  firePoint: {fileID: 0}
+  shellPrefab: {fileID: 0}
+  shellSpeed: 8
   rotationSpeed: 80
   angleOffset: 90
+  shootInterval: 5

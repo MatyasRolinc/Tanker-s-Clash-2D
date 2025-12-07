@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2759027770397936134}
   m_Layer: 0
   m_Name: FastTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   moveTime: 2
   stopTime: 1
   rotationSpeed: 180
+  health: 3
 --- !u!50 &2309951366590509648
 Rigidbody2D:
   serializedVersion: 5
@@ -184,6 +185,7 @@ MonoBehaviour:
   moveTime: 1
   stopTime: 0.5
   rotationSpeed: 90
+  health: 3
 --- !u!212 &2747330474307436708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -386,5 +388,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  firePoint: {fileID: 0}
+  shellPrefab: {fileID: 0}
+  shellSpeed: 8
   rotationSpeed: 120
   angleOffset: 90
+  shootInterval: 5

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyReward : MonoBehaviour
 {
-    public int rewardAmount = 10;
+    public int rewardAmount = 0;
 
     // Zavolej tuto metodu z enemy skriptu těsně před zničením nepřítele.
     public void GiveReward(GameObject killer = null)
