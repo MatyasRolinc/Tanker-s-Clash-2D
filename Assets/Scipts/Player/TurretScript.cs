@@ -47,7 +47,10 @@ public class TurrentScript : MonoBehaviour
             {
                 GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
                 Rigidbody2D rbShell = shell.GetComponent<Rigidbody2D>();
-                if (rbShell != null)
+                TankShellScript ts = shell.GetComponent<TankShellScript>();
+                shell.layer = LayerMask.NameToLayer("Player");
+
+            if (rbShell != null)
                     rbShell.linearVelocity = spawnPoint.up * useShellSpeed;
             }
 

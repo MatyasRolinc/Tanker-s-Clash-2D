@@ -88,4 +88,6 @@ public class UpgradeMenuUIScript : MonoBehaviour
         RefreshUI();
         Debug.Log($"Bought shellSpeed +{shellSpeedAdd}. Money left: {playerStats.money}");
     }
+
+    
 }

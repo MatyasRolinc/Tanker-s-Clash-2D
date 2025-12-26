@@ -3,17 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
 {
-    public float moveSpeed = 2f;           // rychlost pohybu
-    public float moveTime = 2f;            // jak dlouho pojede
-    public float stopTime = 1f;            // jak dlouho stojí
-    public float rotationSpeed = 180f; 
-    public int health = 3;    // rychlost otáčení (stupně za sekundu)
+    public float moveSpeed = 2f;
+    public float moveDuration = 2f;
+    public float stopDuration = 0.5f;
+    public float rotationSpeed = 180f;
+    public float health = 3f;
+
+    public float obstacleCheckDistance = 2f;
+    public LayerMask obstacleMask;
+    public TankShellScript shell;
 
     private Rigidbody2D rb;
+    private float timer;
     private bool isMoving = true;
-    private float timer = 0f;
     private float targetAngle;
-    private bool isTurning = false;
 
     void Start()
     {
@@ -21,53 +24,44 @@ public class EnemyMovement : MonoBehaviour
         rb.gravityScale = 0;
         rb.freezeRotation = true;
 
-        // náhodná počáteční rotace
-        targetAngle = Random.Range(0f, 360f);
-        transform.rotation = Quaternion.Euler(0, 0, targetAngle);
+        PickNewDirection();
     }
 
     void Update()
     {
         timer += Time.deltaTime;
 
-        if (isMoving && timer >= moveTime)
+        if (isMoving)
         {
-            // Zastaví se a začne se otáčet
-            isMoving = false;
-            isTurning = true;
-            timer = 0f;
-            rb.linearVelocity = Vector2.zero;
-            targetAngle = Random.Range(0f, 360f);
-        }
-        else if (!isMoving && !isTurning && timer >= stopTime)
-        {
-            // Po zastavení a otočení se znovu rozjede
-            isMoving = true;
-            timer = 0f;
-        }
-
-        // Plynulé otáčení během "isTurning"
-        if (isTurning)
-        {
-            float currentAngle = transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0, 0, newAngle);
-
-            // když se otočí, přestane se točit
-            if (Mathf.Abs(Mathf.DeltaAngle(newAngle, targetAngle)) < 1f)
+            // když narazí na překážku → hned zastaví a otočí se
+            if (IsObstacleAhead())
             {
-                isTurning = false;
-                timer = 0f;
+                StopAndTurn();
+                return;
+            }
+
+            if (timer >= moveDuration)
+            {
+                StopAndTurn();
             }
         }
+        else
+        {
+            // čekání
+            if (timer >= stopDuration)
+            {
+                PickNewDirection();
+            }
+        }
+
+        RotateTowardsTarget();
     }
 
     void FixedUpdate()
     {
         if (isMoving)
         {
-            Vector2 forward = transform.up;
-            rb.linearVelocity = forward * moveSpeed;
+            rb.linearVelocity = transform.up * moveSpeed;
         }
         else
         {
@@ -75,29 +69,69 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    void StopAndTurn()
     {
-        if (collision.gameObject.CompareTag("TankShell"))
+        isMoving = false;
+        timer = 0f;
+        targetAngle = Random.Range(0f, 360f);
+    }
+
+    void PickNewDirection()
+    {
+        timer = 0f;
+        isMoving = true;
+        targetAngle = Random.Range(0f, 360f);
+    }
+
+    void RotateTowardsTarget()
+    {
+        float current = transform.eulerAngles.z;
+        float newAngle = Mathf.MoveTowardsAngle(current, targetAngle, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, 0, newAngle);
+    }
+    
+    bool IsObstacleAhead()
+{
+    float radius = 0.4f; // cca polovina šířky tanku
+    Vector2 origin = rb.position + (Vector2)transform.up * 0.2f;
+
+    RaycastHit2D hit = Physics2D.CircleCast(
+        origin,
+        radius,
+        transform.up,
+        obstacleCheckDistance,
+        obstacleMask
+    );
+
+    Debug.DrawRay(origin, transform.up * obstacleCheckDistance, Color.red);
+    return hit.collider != null;
+}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Enemy hit by: " + collision.gameObject.name);
+        if (!collision.gameObject.CompareTag("TankShell"))
+            return;
+
+        // zničit projektil
+        Destroy(collision.gameObject);
+
+        // snížit zdraví
+        health -= 1;
+
+        if (health <= 0)
         {
-            health -= 1;
-            Destroy(collision.gameObject); // zničit projektil
+            // udělit odměnu pokud je komponenta přítomná
+            var reward = GetComponent<EnemyReward>();
+            if (reward != null)
+                reward.GiveReward(collision.gameObject);
 
-            if (health <= 0)
-            {
-                // před zničením dej odměnu pokud má nepřítel komponentu EnemyReward
-                var reward = GetComponent<EnemyReward>();
-                if (reward != null)
-                {
-                    // předáváme projektil jako "killer" - EnemyReward si poradí a případně najde hráče
-                    reward.GiveReward(collision.gameObject);
-                }
-                if (LevelManager.Instance != null)
-                {
-                    LevelManager.Instance.EnemyKilled();
-                }
+            // oznámit LevelManageru, že nepřítel zemřel
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.EnemyKilled();
 
-                Destroy(gameObject);
-            }
+
+            Destroy(gameObject);
         }
     }
 }

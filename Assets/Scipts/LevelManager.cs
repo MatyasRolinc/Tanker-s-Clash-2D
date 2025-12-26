@@ -1,19 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // PŘIDÁNO: Nutné pro přepínání scén
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
-    public GameObject upgradeMenuCanvas; // přetáhni Canvas_UpgradeMenu
-    public GameObject hudCanvas;         // HUD ve hře (pokud ho chceš skrývat)
+    public GameObject upgradeMenuCanvas; 
+    public GameObject hudCanvas;    
 
+    public static int nextLevelIndex = 1;     
     int enemiesRemaining = 0;
     int initialEnemyCount = 0;
     bool levelCompletedFlag = false;
 
     private void Awake()
     {
+        // POKUD chceš, aby peníze a stav levelu přežily víc scén, 
+        // přidej sem DontDestroyOnLoad(gameObject), ale pak musíš 
+        // hlídat, aby se Instance neduplikovala.
         Instance = this;
     }
 
@@ -23,7 +28,7 @@ public class LevelManager : MonoBehaviour
         initialEnemyCount = enemiesRemaining;
         Debug.Log($"LevelManager: Enemies counted at start = {initialEnemyCount}");
 
-        if (upgradeMenuCanvas != null) upgradeMenuCanvas.SetActive(false);
+        
     }
 
     public void EnemyKilled()
@@ -39,38 +44,37 @@ public class LevelManager : MonoBehaviour
 
     void LevelCompleted()
     {
-        if (levelCompletedFlag) return;
-        levelCompletedFlag = true;
-
-        Debug.Log($"LevelManager: LevelCompleted called. Initial enemies = {initialEnemyCount}, Remaining = {Mathf.Max(0, enemiesRemaining)}");
-
-        Time.timeScale = 0f;                 // pauza hry
-
-        if (upgradeMenuCanvas != null)
-            upgradeMenuCanvas.SetActive(true);   // ukaž menu
-
-        if (hudCanvas != null)
-            hudCanvas.SetActive(false);
-
-        // odstraněno: deaktivace root GameObjectů — nic jiného se nemění
+       Debug.Log("Level dokončen!");
+    
+    // Načte scénu podle indexu v Build Settings
+    // 0 je tvoje UpgradeMenu
+    SceneManager.LoadScene(0);
     }
 
-    public void NextLevel()
+    // Tuto metodu nastav na tlačítko "POKRAČOVAT" v Upgrade Menu
+    public void LoadNextLevel()
     {
-        Time.timeScale = 1f;
+       // 1. Zjistíme index aktuálně otevřené scény
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (upgradeMenuCanvas != null) upgradeMenuCanvas.SetActive(false);
-        if (hudCanvas != null) hudCanvas.SetActive(true);
+        // 2. Vypočítáme index další scény
+        int nextSceneIndex = currentSceneIndex + 1;
 
-        levelCompletedFlag = false;
-
-        // (Zde načti další scénu nebo restart pokud je třeba)
+        // 3. Zkontrolujeme, jestli další scéna v Build Settings vůbec existuje
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.Log("Jsi na konci! Žádný další level v Build Settings není.");
+            // Tady můžeš třeba načíst znovu menu (index 0)
+            // SceneManager.LoadScene(0);
+        }
     }
-
     public void AwardMoney(int amount, GameObject source = null)
     {
         if (amount == 0) return;
-
         PlayerStats ps = null;
 
         if (source != null)
@@ -89,6 +93,6 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        Debug.LogWarning("LevelManager: AwardMoney - PlayerStats not found to add money.");
+        Debug.LogWarning("LevelManager: AwardMoney - PlayerStats not found.");
     }
 }
