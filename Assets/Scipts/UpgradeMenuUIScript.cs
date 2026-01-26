@@ -1,93 +1,147 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement; // Potřebujeme pro přepínání levelů
 
 public class UpgradeMenuUIScript : MonoBehaviour
 {
-    public PlayerStats playerStats; // nastav v Inspectoru
+    private PlayerStats playerStats;
 
+    [Header("UI Texty")]
     public TextMeshProUGUI hpTMP;
     public TextMeshProUGUI speedTMP;
-    public TextMeshProUGUI damageTMP;
     public TextMeshProUGUI reloadTMP;
     public TextMeshProUGUI shellSpeedTMP;
+    public TextMeshProUGUI damageTMP; // Přidáno pro damage
 
+    [Header("Ceny")]
     public int healthCost = 50;
-    public int healthAdd = 1;
-
     public int speedCost = 40;
-    public float speedAdd = 0.5f;
-
-    public int rotationCost = 30;
-    public float rotationAdd = 10f;
-
     public int reloadCost = 60;
-    public float reloadDelta = -0.05f;
     public int shellSpeedCost = 40;
-    public float shellSpeedAdd = 1f;
+    public int damageCost = 70;
 
-    void Start() { RefreshUI(); }
-
-    public void RefreshUI()
-    {
-        if (playerStats != null)
+    void Start() 
+    { 
+        if (PlayerStats.instance != null)
         {
-            if (hpTMP != null) hpTMP.text = playerStats.maxHealth.ToString();
-            if (speedTMP != null) speedTMP.text = playerStats.moveSpeed.ToString("0.##");
-            if (damageTMP != null) damageTMP.text = "—";
-            if (reloadTMP != null) reloadTMP.text = $"{playerStats.reloadTime:0.00}s";
-            if (shellSpeedTMP != null) shellSpeedTMP.text = playerStats.shellSpeed.ToString("0.##");
+            playerStats = PlayerStats.instance;
+            Debug.Log("<color=green>UpgradeMenu: PlayerStats nalezen!</color>");
+            RefreshUI();
+        }
+        else
+        {
+            Debug.LogError("<color=red>UpgradeMenu: PlayerStats NENALEZEN! Spusť hru z Levelu 1!</color>");
         }
     }
 
-    // debugované tlačítko: vypíše důvod pokud nic neproběhne
-    public void BuyHealthUpgrade()
-    {
-        Debug.Log("BuyHealthUpgrade pressed");
-        if (playerStats == null) { Debug.LogWarning("BuyHealthUpgrade: playerStats is null"); return; }
-        if (!playerStats.SpendMoney(healthCost)) { Debug.Log("BuyHealthUpgrade: not enough money"); return; }
+    public void RefreshUI()
+{
+    // Toto zajistí, že vždy bereme data z té "nesmrtelné" instance
+    playerStats = PlayerStats.instance;
 
-        playerStats.maxHealth += healthAdd;
-        playerStats.health = Mathf.Clamp(playerStats.health + healthAdd, 0, playerStats.maxHealth);
-        playerStats.UpdateUI();
+    if (playerStats == null) 
+    {
+        Debug.LogError("RefreshUI: Stále nemůžu najít PlayerStats.instance!");
+        return;
+    }
+
+    // Teď vypíšeme hodnoty - Všimni si Debug logu, ten nám řekne pravdu
+    Debug.Log($"Vypisuji do UI: HP={playerStats.maxHealth}, Speed={playerStats.moveSpeed}");
+
+    if (hpTMP != null) hpTMP.text = playerStats.maxHealth.ToString();
+    if (speedTMP != null) speedTMP.text = playerStats.moveSpeed.ToString("F1");
+    if (reloadTMP != null) reloadTMP.text = playerStats.reloadTime.ToString("F2");
+    if (shellSpeedTMP != null) shellSpeedTMP.text = playerStats.shellSpeed.ToString("F1");
+
+    playerStats.UpdateUI();
+}
+
+    // --- METODY PRO TLAČÍTKA ---
+
+    public void BuyHealthUpgrade()
+    {   RefreshUI();    
+        Debug.Log("KLIKNUTO na Health Upgrade");
+        Debug.Log("BuyHealthUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
+        if (CheckStats() && playerStats.SpendMoney(healthCost))
+        {
+            RefreshUI();
+            playerStats.maxHealth += 1;
+            playerStats.health += 1; // Přidá život i do aktuálního zdraví
+            Debug.Log("<color=cyan>Upgrade KOUPEN! Max HP: </color>" + playerStats.maxHealth);
+            
+        }
         RefreshUI();
-        Debug.Log($"Bought health +{healthAdd}. Money left: {playerStats.money}");
     }
 
     public void BuySpeedUpgrade()
-    {
-        Debug.Log("BuySpeedUpgrade pressed");
-        if (playerStats == null) { Debug.LogWarning("BuySpeedUpgrade: playerStats is null"); return; }
-        if (!playerStats.SpendMoney(speedCost)) { Debug.Log("BuySpeedUpgrade: not enough money"); return; }
-
-        playerStats.moveSpeed += speedAdd;
-        playerStats.UpdateUI();
+    {   RefreshUI();
+        Debug.Log("KLIKNUTO na Speed Upgrade");
+        Debug.Log("BuySpeedUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
+        if (CheckStats() && playerStats.SpendMoney(speedCost))
+        {
+            playerStats.moveSpeed += 0.5f;
+            Debug.Log("<color=cyan>Upgrade KOUPEN! Rychlost: </color>" + playerStats.moveSpeed);
+            
+        }
         RefreshUI();
-        Debug.Log($"Bought speed +{speedAdd}. Money left: {playerStats.money}");
     }
 
     public void BuyReloadUpgrade()
-    {
-        Debug.Log("BuyReloadUpgrade pressed");
-        if (playerStats == null) { Debug.LogWarning("BuyReloadUpgrade: playerStats is null"); return; }
-        if (!playerStats.SpendMoney(reloadCost)) { Debug.Log("BuyReloadUpgrade: not enough money"); return; }
-
-        playerStats.reloadTime = Mathf.Max(0.01f, playerStats.reloadTime + reloadDelta);
-        playerStats.UpdateUI();
+    {   RefreshUI();
+        Debug.Log("KLIKNUTO na Reload Upgrade");
+        Debug.Log("BuyReloadUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
+        if (CheckStats() && playerStats.SpendMoney(reloadCost))
+        {
+            // Snížení času (přebíjíš rychleji), minimum je 0.1s
+            playerStats.reloadTime = Mathf.Max(0.1f, playerStats.reloadTime - 0.05f);
+            Debug.Log("<color=cyan>Upgrade KOUPEN! Reload Time: </color>" + playerStats.reloadTime);
+            
+        }
         RefreshUI();
-        Debug.Log($"Bought reload {reloadDelta}. Money left: {playerStats.money}");
     }
 
     public void BuyShellSpeedUpgrade()
-    {
-        Debug.Log("BuyShellSpeedUpgrade pressed");
-        if (playerStats == null) { Debug.LogWarning("BuyShellSpeedUpgrade: playerStats is null"); return; }
-        if (!playerStats.SpendMoney(shellSpeedCost)) { Debug.Log("BuyShellSpeedUpgrade: not enough money"); return; }
-
-        playerStats.shellSpeed += shellSpeedAdd;
-        playerStats.UpdateUI();
+    {   RefreshUI();
+        Debug.Log("KLIKNUTO na Shell Speed Upgrade");
+        Debug.Log("BuyShellSpeedUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
+        if (CheckStats() && playerStats.SpendMoney(shellSpeedCost))
+        {
+            playerStats.shellSpeed += 1.0f;
+            Debug.Log("<color=cyan>Upgrade KOUPEN! Rychlost střely: </color>" + playerStats.shellSpeed);
+            
+        }
         RefreshUI();
-        Debug.Log($"Bought shellSpeed +{shellSpeedAdd}. Money left: {playerStats.money}");
     }
 
-    
+    // TLAČÍTKO PRO DALŠÍ LEVEL
+    public void ClickNextLevel()
+    {
+        Debug.Log("Tlačítko Next Level stisknuto.");
+
+    // Pokusíme se najít LevelManager v aktuální scéně
+    // Pokud ho tam máš jako Singleton (LevelManager.Instance)
+    if (LevelManager.Instance != null)
+    {
+        // Tady voláme metodu, kterou máš v LevelManageru
+        // Pokud se jmenuje jinak (např. LoadNextScene), přejmenuj to zde
+        LevelManager.Instance.LoadNextLevel(); 
+    }
+    else
+    {
+        // Pokud LevelManager není Singleton, zkusíme ho najít přes Find
+        LevelManager lm = FindFirstObjectByType<LevelManager>();
+        if (lm != null)
+        {
+            lm.LoadNextLevel();
+        }
+       
+    }
+    }
+
+    // Pomocná metoda, aby se kód neopakoval
+    private bool CheckStats()
+    {
+        if (playerStats == null) playerStats = PlayerStats.instance;
+    return playerStats != null;
+    }
 }

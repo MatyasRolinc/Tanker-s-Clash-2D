@@ -16,10 +16,16 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        // POKUD chceš, aby peníze a stav levelu přežily víc scén, 
-        // přidej sem DontDestroyOnLoad(gameObject), ale pak musíš 
-        // hlídat, aby se Instance neduplikovala.
+       if (Instance == null)
+    {
         Instance = this;
+        DontDestroyOnLoad(gameObject); // Tento objekt teď přežije změnu scény
+    }
+    else
+    {
+        Destroy(gameObject); // Pokud už jeden existuje, tento nový smažeme
+        return;
+    }
     }
 
     private void Start()
@@ -30,6 +36,29 @@ public class LevelManager : MonoBehaviour
 
         
     }
+
+    private void OnEnable()
+{
+    // Přihlásíme se k odběru události načtení scény
+    SceneManager.sceneLoaded += OnSceneLoaded;
+}
+
+private void OnDisable()
+{
+    // Odhlásíme se (prevence chyb)
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+}
+
+// Tato metoda se spustí pokaždé, když se načte jakákoliv scéna
+private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+{
+    // Resetujeme flag a spočítáme nepřátele v nové scéně
+    levelCompletedFlag = false;
+    enemiesRemaining = GameObject.FindGameObjectsWithTag("Enemy").Length;
+    initialEnemyCount = enemiesRemaining;
+
+    Debug.Log($"Scéna {scene.name} načtena. Nepřátel nalezeno: {enemiesRemaining}");
+}
 
     public void EnemyKilled()
     {
@@ -44,32 +73,34 @@ public class LevelManager : MonoBehaviour
 
     void LevelCompleted()
     {
-       Debug.Log("Level dokončen!");
-    
-    // Načte scénu podle indexu v Build Settings
-    // 0 je tvoje UpgradeMenu
-    SceneManager.LoadScene(0);
+        levelCompletedFlag = true; // Zabráníme vícenásobnému spuštění
+
+        // Uložíme index pro příště do LevelManager.nextLevelIndex
+        nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextLevelIndex >= SceneManager.sceneCountInBuildSettings)
+            nextLevelIndex = 0; // zpět do menu/upgrade pokud není další level
+
+        Debug.Log("Vše mrtvé, jdu do UpgradeScene");
+        SceneManager.LoadScene("UpgradeScene"); // UJISTI SE, ŽE SE TAK SCÉNA JMENUJE!
     }
+
+    
 
     // Tuto metodu nastav na tlačítko "POKRAČOVAT" v Upgrade Menu
     public void LoadNextLevel()
     {
-       // 1. Zjistíme index aktuálně otevřené scény
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // Použijeme `nextLevelIndex` nastavený při dokončení levelu
+        int indexToLoad = nextLevelIndex;
 
-        // 2. Vypočítáme index další scény
-        int nextSceneIndex = currentSceneIndex + 1;
-
-        // 3. Zkontrolujeme, jestli další scéna v Build Settings vůbec existuje
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        // Kontrola, zda scéna existuje
+        if (indexToLoad < SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            SceneManager.LoadScene(indexToLoad);
         }
         else
         {
-            Debug.Log("Jsi na konci! Žádný další level v Build Settings není.");
-            // Tady můžeš třeba načíst znovu menu (index 0)
-            // SceneManager.LoadScene(0);
+            Debug.Log("Konec hry!");
+            SceneManager.LoadScene(0); // Zpět do menu/upgrade
         }
     }
     public void AwardMoney(int amount, GameObject source = null)

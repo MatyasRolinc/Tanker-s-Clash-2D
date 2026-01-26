@@ -2454,7 +2454,6 @@ GameObject:
   - component: {fileID: 2186203442500781999}
   - component: {fileID: 2209730889673118616}
   - component: {fileID: 8210072614029851557}
-  - component: {fileID: 7015836928642760035}
   m_Layer: 5
   m_Name: Canvas_UpgradeMenu
   m_TagString: Untagged
@@ -2545,20 +2544,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7015836928642760035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6571950286629229229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e01a6e45a5f31049b06763e1a842100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tank: {fileID: 0}
-  turret: {fileID: 0}
 --- !u!1 &6658706742965212210
 GameObject:
   m_ObjectHideFlags: 0

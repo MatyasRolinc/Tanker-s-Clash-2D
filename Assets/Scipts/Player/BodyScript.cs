@@ -7,8 +7,8 @@ public class BodyScript : MonoBehaviour
     public RectTransform healthBar;
     public TextMeshProUGUI moneyText;
 
-    // všechny staty teď v PlayerStats (nastav v Inspectoru nebo se automaticky najde)
-    public PlayerStats stats;
+    // Již nepotřebujeme nastavovat v Inspectoru, najdeme si to sami
+    private PlayerStats stats;
 
     private Rigidbody2D rb;
     private float moveInput = 0f;
@@ -19,11 +19,20 @@ public class BodyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
 
-        if (stats == null)
-            stats = GetComponent<PlayerStats>() ?? GetComponentInParent<PlayerStats>();
-
-        if (stats != null && stats.health <= 0)
-            stats.health = stats.maxHealth;
+        // --- KLÍČOVÁ ZMĚNA: Napojení na globální statistiky ---
+        if (PlayerStats.instance != null)
+        {
+            stats = PlayerStats.instance;
+            
+            // Propojíme UI z tohoto levelu do našeho globálního skriptu, 
+            // aby se peníze správně aktualizovaly i tam
+            stats.moneyText = this.moneyText;
+            stats.healthBar = this.healthBar;
+        }
+        else
+        {
+            Debug.LogError("Ve scéně chybí GameManager s PlayerStats!");
+        }
 
         UpdateHealthBar();
         UpdateMoneyUI();
@@ -31,10 +40,10 @@ public class BodyScript : MonoBehaviour
 
     void Update()
     {
-        // čtení vstupu (physics v FixedUpdate)
         moveInput = 0f;
         rotateInput = 0f;
 
+        // Ovládání tanku (S/W pro pohyb, A/D pro rotaci)
         if (Input.GetKey(KeyCode.S)) moveInput = 1f;
         else if (Input.GetKey(KeyCode.W)) moveInput = -1f;
 
@@ -47,13 +56,13 @@ public class BodyScript : MonoBehaviour
         MoveTank(moveInput, rotateInput);
     }
 
-    // pohyb používá hodnoty z stats
     public void MoveTank(float moveValue, float rotateValue)
     {
+        // Bereme hodnoty přímo z globálních statistik
         float speed = (stats != null) ? stats.moveSpeed : 5f;
         float rotSpeed = (stats != null) ? stats.rotationSpeed : 150f;
 
-        Vector2 direction = transform.right * moveValue; // nebo transform.up podle modelu
+        Vector2 direction = transform.right * moveValue; 
         Vector2 newPos = rb.position + direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(newPos);
 
@@ -68,46 +77,36 @@ public class BodyScript : MonoBehaviour
             Destroy(collision.gameObject);
 
             if (stats != null)
+            {
                 stats.TakeDamage(1);
+                // Zavoláme UpdateUI na statistikách, aby se pohnul healthbar
+                stats.UpdateUI();
+            }
 
             UpdateHealthBar();
 
             if (stats != null && stats.health <= 0)
+            {
+                // Tady můžeš přidat efekt výbuchu před zničením
                 Destroy(gameObject);
+            }
         }
     }
 
-    // Health bar založený na hodnotách v stats
-    private void UpdateHealthBar()
-    {
-        if (healthBar == null) return;
-        int safeMax = Mathf.Max(1, (stats != null ? stats.maxHealth : 1));
-        float current = (stats != null ? stats.health : safeMax);
-        float healthPercent = Mathf.Clamp01(current / (float)safeMax);
-        healthBar.localScale = new Vector3(healthPercent, 1f, 1f);
-    }
-
-    // přidání peněz přes PlayerStats
+    // Tyto metody nyní hlavně komunikují s globálními staty
     public void AddMoney(int amount)
     {
         if (stats != null)
             stats.AddMoney(amount);
-
+        
         UpdateMoneyUI();
     }
 
-    private void UpdateMoneyUI()
-    {
-        if (moneyText == null) return;
-        int display = (stats != null) ? stats.money : 0;
-        moneyText.text = display.ToString();
-    }
+    private void UpdateHealthBar() { if(stats != null) stats.UpdateUI(); }
+    private void UpdateMoneyUI() { if(stats != null) stats.UpdateUI(); }
 
-    // pomocná metoda kompatibilní s předchozím voláním
     public void didHit(GameObject itemShot)
     {
         AddMoney(1);
     }
 }
-
-

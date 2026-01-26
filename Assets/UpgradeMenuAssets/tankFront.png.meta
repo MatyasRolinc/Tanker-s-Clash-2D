@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eca421c088b37c1488feb2ce676b4167
+guid: 145af3c651428cf4f8be53dbf5d5862d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4638254479866056618
-    second: bekgraund_0
+      213: -5673182453764835208
+    second: tankFront_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bekgraund_0
+      name: tankFront_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1024
+        width: 376
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65038b5002c91afb0800000000000000
-      internalID: -4638254479866056618
+      spriteID: 8783e59bd9ec441b0800000000000000
+      internalID: -5673182453764835208
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bekgraund_0: -4638254479866056618
+      tankFront_0: -5673182453764835208
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

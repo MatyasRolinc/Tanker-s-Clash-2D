@@ -131,10 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9627b376d35917b428ff46e341c93900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  rotationSpeed: 150
-  health: 5
-  maxHealth: 5
+  healthBar: {fileID: 0}
+  moneyText: {fileID: 0}
 --- !u!1 &5983488651731552131
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,8 +236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TankShellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
   spawnPoint: {fileID: 3577099288438542933}
-  shellSpeed: 10
-  reloadTime: 0.75
 --- !u!1 &9067023934982969721
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +248,6 @@ GameObject:
   - component: {fileID: 1532769239669221952}
   - component: {fileID: 2084038554801413195}
   - component: {fileID: 2539971997591438878}
-  - component: {fileID: 5492230088364639650}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -405,19 +400,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5492230088364639650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9067023934982969721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9627b376d35917b428ff46e341c93900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 150
-  health: 5
-  maxHealth: 5

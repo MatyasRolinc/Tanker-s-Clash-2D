@@ -1,9 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class EnemyMovement : MonoBehaviour
-{
-    public float moveSpeed = 2f;
+public class BossTankMovement : MonoBehaviour
+{ public float moveSpeed = 2f;
     public float moveDuration = 2f;
     public float stopDuration = 0.5f;
     public float rotationSpeed = 180f;

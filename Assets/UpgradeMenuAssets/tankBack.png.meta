@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8891e8102b32a2e499038fb3c7dd3ca6
+guid: 984a7ed6dd7a27741a76159c3d057271
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6205797183830800279
-    second: craiyon_175018_Generate_pixel_art_dirt_64_64_wide_0
+      213: -4138456883729335070
+    second: tankBack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: craiyon_175018_Generate_pixel_art_dirt_64_64_wide_0
+      name: tankBack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 943
-        height: 836
+        width: 375
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96845ad475490e9a0800000000000000
-      internalID: -6205797183830800279
+      spriteID: 2ecfa07046f3196c0800000000000000
+      internalID: -4138456883729335070
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      craiyon_175018_Generate_pixel_art_dirt_64_64_wide_0: -6205797183830800279
+      tankBack_0: -4138456883729335070
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

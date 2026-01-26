@@ -2,35 +2,20 @@ using UnityEngine;
 
 public class EnemyReward : MonoBehaviour
 {
-    public int rewardAmount = 0;
+    public int rewardAmount = 50000; // Nastavíš v Inspectoru pro každého nepřítele jinak
 
-    // Zavolej tuto metodu z enemy skriptu těsně před zničením nepřítele.
-    public void GiveReward(GameObject killer = null)
+    // Tuto metodu zavolej ve skriptu nepřítele, když mu klesnou životy na 0
+    public void GiveReward()
     {
-        // pokud existuje LevelManager, použij ho
-        if (LevelManager.Instance != null)
+        if (PlayerStats.instance != null)
         {
-            LevelManager.Instance.AwardMoney(rewardAmount, killer);
-            return;
+            // Přičteme peníze přímo do globálních statistik
+            PlayerStats.instance.AddMoney(rewardAmount);
+            Debug.Log($"Nepřítel poražen! Přidáno {rewardAmount} peněz. Celkem: {PlayerStats.instance.money}");
         }
-
-        // fallback: původní logika (pokud LevelManager není přítomen)
-        if (killer != null)
+        else
         {
-            var bs = killer.GetComponent<BodyScript>() ?? killer.GetComponentInParent<BodyScript>();
-            if (bs != null)
-            {
-                bs.AddMoney(rewardAmount);
-                return;
-            }
-        }
-
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            var playerBs = player.GetComponent<BodyScript>();
-            if (playerBs != null)
-                playerBs.AddMoney(rewardAmount);
+            Debug.LogWarning("EnemyReward: Nelze připsat odměnu, PlayerStats.instance chybí!");
         }
     }
 }

@@ -1,0 +1,440 @@
+fileFormatVersion: 2
+guid: a3fa940f4a5f3014586e0f92ae167c20
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8017555983185189322
+    second: laserAnimation_0
+  - first:
+      213: -3900453577102988873
+    second: laserAnimation_1
+  - first:
+      213: 2130025727061627250
+    second: laserAnimation_2
+  - first:
+      213: -1724024467234823097
+    second: laserAnimation_3
+  - first:
+      213: 8965519492549770891
+    second: laserAnimation_4
+  - first:
+      213: -4008417828264507709
+    second: laserAnimation_5
+  - first:
+      213: 3557766369990595071
+    second: laserAnimation_6
+  - first:
+      213: -854391038926162380
+    second: laserAnimation_7
+  - first:
+      213: 123484330301866035
+    second: laserAnimation_8
+  - first:
+      213: 652100371177345207
+    second: laserAnimation_9
+  - first:
+      213: 8429366617692283367
+    second: laserAnimation_10
+  - first:
+      213: -7270261651378383876
+    second: laserAnimation_11
+  - first:
+      213: 9079885289233092699
+    second: laserAnimation_12
+  - first:
+      213: 6991146663496513171
+    second: laserAnimation_13
+  - first:
+      213: -8135033819448277796
+    second: laserAnimation_14
+  - first:
+      213: -8188020704185922322
+    second: laserAnimation_15
+  - first:
+      213: -3041684762881124207
+    second: laserAnimation_16
+  - first:
+      213: 4790756432119109629
+    second: laserAnimation_17
+  - first:
+      213: -1413101656161499858
+    second: laserAnimation_18
+  - first:
+      213: 2377051975689898896
+    second: laserAnimation_19
+  - first:
+      213: 7594034138562229746
+    second: laserAnimation_20
+  - first:
+      213: -3537646546497175594
+    second: laserAnimation_21
+  - first:
+      213: 4213816110595910221
+    second: laserAnimation_22
+  - first:
+      213: 3620080405008452137
+    second: laserAnimation_23
+  - first:
+      213: 2544098515760885295
+    second: laserAnimation_24
+  - first:
+      213: -466642329957046969
+    second: laserAnimation_25
+  - first:
+      213: 8133080428667808348
+    second: laserAnimation_26
+  - first:
+      213: -8751788391793580991
+    second: laserAnimation_27
+  - first:
+      213: 8547104335203457877
+    second: laserAnimation_28
+  - first:
+      213: 5865055891276096158
+    second: laserAnimation_29
+  - first:
+      213: -4233718966188740389
+    second: laserAnimation_30
+  - first:
+      213: 9154365298827353901
+    second: laserAnimation_31
+  - first:
+      213: 484971560558175725
+    second: laserAnimation_32
+  - first:
+      213: -8141739391150668280
+    second: laserAnimation_33
+  - first:
+      213: -1068396764070348819
+    second: laserAnimation_34
+  - first:
+      213: 6031578910846121893
+    second: laserAnimation_35
+  - first:
+      213: 8993542135582757509
+    second: laserAnimation_36
+  - first:
+      213: 9047953297053860467
+    second: laserAnimation_37
+  - first:
+      213: 5042914219815601228
+    second: laserAnimation_38
+  - first:
+      213: 4737712955891182521
+    second: laserAnimation_39
+  - first:
+      213: 2278528381286775751
+    second: laserAnimation_40
+  - first:
+      213: -3739579135620357358
+    second: laserAnimation_41
+  - first:
+      213: 1811658886354174594
+    second: laserAnimation_42
+  - first:
+      213: 7206885073347305605
+    second: laserAnimation_43
+  - first:
+      213: -5571878762449654093
+    second: laserAnimation_44
+  - first:
+      213: 1345837008723634932
+    second: laserAnimation_45
+  - first:
+      213: -6881158428094446307
+    second: laserAnimation_46
+  - first:
+      213: 6202615300700421331
+    second: laserAnimation_47
+  - first:
+      213: 2188674086811190668
+    second: laserAnimation_48
+  - first:
+      213: 992298414764096880
+    second: laserAnimation_49
+  - first:
+      213: 7977276785498593411
+    second: laserAnimation_50
+  - first:
+      213: -1696764496393536877
+    second: laserAnimation_51
+  - first:
+      213: -9196962418165248235
+    second: laserAnimation_52
+  - first:
+      213: 1681973061524072094
+    second: laserAnimation_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 30
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: laserAnimation_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.11495551, y: 0.4779731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6366077ef4bebb090800000000000000
+      internalID: -8017555983185189322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.12633616, y: 0.4779731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b9efd9132eced9c0800000000000000
+      internalID: -3900453577102988873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_2
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.1301298, y: 0.49265778}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27193f70d1f5f8d10800000000000000
+      internalID: 2130025727061627250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.1301298, y: 0.50734246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 744e26e91e80318e0800000000000000
+      internalID: -1724024467234823097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_4
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.122542724, y: 0.4779731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ef4442a7ceb6c70800000000000000
+      internalID: 8965519492549770891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_5
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.1301298, y: 0.4779731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c683f2093d3f58c0800000000000000
+      internalID: -4008417828264507709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserAnimation_6
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 0
+        width: 600
+        height: 155
+      alignment: 9
+      pivot: {x: 0.118749596, y: 0.4779731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff1de15e9a9bf5130800000000000000
+      internalID: 3557766369990595071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: cfa4adfd54264a245943e531358f9fed
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      laserAnimation_0: -8017555983185189322
+      laserAnimation_1: -3900453577102988873
+      laserAnimation_2: 2130025727061627250
+      laserAnimation_3: -1724024467234823097
+      laserAnimation_4: 8965519492549770891
+      laserAnimation_5: -4008417828264507709
+      laserAnimation_6: 3557766369990595071
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
