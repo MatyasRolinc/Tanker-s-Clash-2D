@@ -6,6 +6,9 @@ public class TurrentScript : MonoBehaviour
     public GameObject TankShellPrefab;
     public Transform spawnPoint;
 
+    // ruční posun úhlu (stejně jako u enemy)
+    public float angleOffset = 0f;
+
     // Reference se nyní napojí na globální staty
     private PlayerStats stats;
 
@@ -39,7 +42,7 @@ public class TurrentScript : MonoBehaviour
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + angleOffset;
         
         // Úprava rotace -90f závisí na tom, jak máš otočený sprite věže
         transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);

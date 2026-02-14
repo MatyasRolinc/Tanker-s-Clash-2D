@@ -112,10 +112,17 @@ public class EnemyMovement : MonoBehaviour
             // Zničit střelu
             Destroy(collision.gameObject);
 
-            // Snížit zdraví
-            health -= 1;
+            // Snížit zdraví podle poškození hráče (pokud existuje), jinak použít 1
+            int dmg = 1;
+            if (PlayerStats.instance != null)
+            {
+                dmg = PlayerStats.instance.damage;
+            }
 
-            if (health <= 0)
+            health -= dmg;
+            Debug.Log($"Enemy hit by shell: -{dmg} HP (remaining {health})");
+
+            if (health <= 0f)
             {
                 Die();
             }

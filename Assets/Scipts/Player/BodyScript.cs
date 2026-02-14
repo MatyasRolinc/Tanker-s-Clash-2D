@@ -74,12 +74,16 @@ public class BodyScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("TankShell"))
         {
+            // Pokud má střela svůj atribut damage, použijeme ho
+            int dmg = 1;
+            var shell = collision.gameObject.GetComponent<TankShellScript>();
+            if (shell != null) dmg = shell.damage;
+
             Destroy(collision.gameObject);
 
             if (stats != null)
             {
-                stats.TakeDamage(1);
-                // Zavoláme UpdateUI na statistikách, aby se pohnul healthbar
+                stats.TakeDamage(dmg);
                 stats.UpdateUI();
             }
 
@@ -87,7 +91,6 @@ public class BodyScript : MonoBehaviour
 
             if (stats != null && stats.health <= 0)
             {
-                // Tady můžeš přidat efekt výbuchu před zničením
                 Destroy(gameObject);
             }
         }

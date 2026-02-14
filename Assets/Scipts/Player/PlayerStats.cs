@@ -10,12 +10,18 @@ public class PlayerStats : MonoBehaviour
     public int health = 5;
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
+    public int damage = 1;
     public int money = 5000;
     public float reloadTime = 0.75f;
     public float shellSpeed = 10f;
 
     [HideInInspector] public RectTransform healthBar;
     [HideInInspector] public TextMeshProUGUI moneyText;
+
+    void Start()
+    {
+        health = maxHealth;
+    }
 
     void Awake()
     {
@@ -47,6 +53,11 @@ public class PlayerStats : MonoBehaviour
         money += amount;
         UpdateUI();
     }
+    public void ResetHealth()
+    {
+        health = maxHealth;
+        
+    }
 
     // --- LOGIKA UPGRADŮ ---
     // Tyto metody budeš volat z tlačítek v Upgrade Menu
@@ -74,6 +85,15 @@ public class PlayerStats : MonoBehaviour
         if (SpendMoney(cost))
         {
             reloadTime -= 0.05f; // Sníží čas nabíjení = střílíš rychleji
+            UpdateUI();
+        }
+    }
+
+    public void UpgradeDamage(int cost)
+    {
+        if (SpendMoney(cost))
+        {
+            damage += 1;
             UpdateUI();
         }
     }

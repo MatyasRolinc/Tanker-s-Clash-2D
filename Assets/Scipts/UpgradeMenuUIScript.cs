@@ -52,6 +52,7 @@ public class UpgradeMenuUIScript : MonoBehaviour
     if (speedTMP != null) speedTMP.text = playerStats.moveSpeed.ToString("F1");
     if (reloadTMP != null) reloadTMP.text = playerStats.reloadTime.ToString("F2");
     if (shellSpeedTMP != null) shellSpeedTMP.text = playerStats.shellSpeed.ToString("F1");
+    if (damageTMP != null) damageTMP.text = playerStats.damage.ToString();
 
     playerStats.UpdateUI();
 }
@@ -109,6 +110,19 @@ public class UpgradeMenuUIScript : MonoBehaviour
             playerStats.shellSpeed += 1.0f;
             Debug.Log("<color=cyan>Upgrade KOUPEN! Rychlost střely: </color>" + playerStats.shellSpeed);
             
+        }
+        RefreshUI();
+    }
+
+    public void BuyDamageUpgrade()
+    {
+        RefreshUI();
+        Debug.Log("KLIKNUTO na Damage Upgrade");
+        Debug.Log("BuyDamageUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
+        if (CheckStats())
+        {
+            playerStats.UpgradeDamage(damageCost);
+            Debug.Log("<color=cyan>Upgrade KOUPEN! Damage: </color>" + playerStats.damage);
         }
         RefreshUI();
     }

@@ -7,6 +7,7 @@ public class BossTankTurretScript : MonoBehaviour
     public GameObject shellPrefab;
     public GameObject laserPrefab;
     public float shellSpeed = 8f;
+    public int damage = 1; // kolik HP uděluje jeho střela
 
     public float rotationSpeed = 80f;  // rychlost otáčení (°/s)
     public float angleOffset = 0f;      // ruční posun úhlu
@@ -68,6 +69,9 @@ public class BossTankTurretScript : MonoBehaviour
         if (shellPrefab == null || firePoint == null) return;
 
         GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation);
+        var shellScript = shell.GetComponent<TankShellScript>();
+        if (shellScript != null) shellScript.damage = damage;
+
         Rigidbody2D rb = shell.GetComponent<Rigidbody2D>();
         shell.layer = LayerMask.NameToLayer("Enemy");
         if (rb != null)

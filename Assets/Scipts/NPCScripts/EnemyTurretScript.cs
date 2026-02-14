@@ -5,6 +5,7 @@ public class EnemyTurretScript : MonoBehaviour
     public Transform target;            // hráč (tank)
     public Transform firePoint;         // odkud vystřelí (pokud null => this.transform)
     public GameObject shellPrefab;
+    public int damage = 1; // kolik HP ubere tato věž
     public float shellSpeed = 8f;
 
     public float rotationSpeed = 120f;  // rychlost otáčení (°/s)
@@ -62,9 +63,13 @@ public class EnemyTurretScript : MonoBehaviour
     {
         if (shellPrefab == null || firePoint == null) return;
 
-            GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D rb = shell.GetComponent<Rigidbody2D>();
-            shell.layer = LayerMask.NameToLayer("Enemy");
+        GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation);
+        // Předáme hodnotu damage do objektu střely (pokud má skript TankShellScript)
+        var shellScript = shell.GetComponent<TankShellScript>();
+        if (shellScript != null) shellScript.damage = damage;
+
+        Rigidbody2D rb = shell.GetComponent<Rigidbody2D>();
+        shell.layer = LayerMask.NameToLayer("Enemy");
         if (rb != null)
             rb.linearVelocity = firePoint.up * shellSpeed;
 
