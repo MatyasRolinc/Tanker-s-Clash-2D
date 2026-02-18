@@ -10,6 +10,11 @@ public class LevelManager : MonoBehaviour
     // ZMĚNĚNO: Teď je tu velké "E", aby to sedělo s tvým Unity nastavením
     public string enemyTag = "Enemy"; 
     public string upgradeSceneName = "UpgradeScene";
+    public GameObject pauseMenuPanel;
+    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
+ // Sem v Inspektoru přetáhneš ten Panel
+    private bool isPaused = false;
     
     [Header("Stav Levelu")]
     public int enemiesRemaining = 0;
@@ -30,9 +35,16 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
-    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+    {
+        Debug.Log("ESC byl stisknut!"); // Tímhle ověříme, že klávesnice funguje
+        PauseGame();
+    }
+    }
 
+    
     // Metody přidané zpět: StartGame a QuitGame
     public void StartGame()
     {
@@ -40,6 +52,36 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void ReturnToMainMenu()
+    {
+    Time.timeScale = 1f;
+    SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame()
+    {
+    if (pauseMenuPanel == null) return; // Pojistka, kdybychom panel zapomněli přiřadit
+
+    pauseMenuPanel.SetActive(true);
+    Time.timeScale = 0f; // TADY ZASTAVÍME ČAS VE HŘE
+    isPaused = true;
+    
+    // Volitelné: Ukáže myš, i když jsi ji předtím schoval
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void ResumeGame()
+    {
+    if (pauseMenuPanel == null) return;
+
+    pauseMenuPanel.SetActive(false);
+    Time.timeScale = 1f; // TADY ČAS ZNOVU SPUSTÍME
+    isPaused = false;
+
+    // Pokud ve hře myš nepotřebuješ, můžeš ji tu zase schovat
+    // Cursor.visible = false;
+    }
     public void QuitGame()
     {
         Debug.Log("Vypínám hru...");
@@ -57,7 +99,6 @@ public class LevelManager : MonoBehaviour
         {
             ps.ResetHealth();
         }
-        
 
         try 
         {
@@ -69,6 +110,24 @@ public class LevelManager : MonoBehaviour
         {
             enemiesRemaining = 0;
         }
+
+         GameObject foundPanel = GameObject.Find("PauseMenu");
+    
+        if (foundPanel != null)
+        {
+            pauseMenuPanel = foundPanel;
+            // Tady ho kód programově vypne, takže hráč ho při startu neuvidí
+            pauseMenuPanel.SetActive(false); 
+            Debug.Log("PauseMenu úspěšně nalezeno a skryto.");
+        }
+        else
+        {
+            Debug.LogWarning("LevelManager pořád nemůže najít PauseMenu. Zkontroluj jméno!");
+        }
+
+            pauseMenuPanel = GameObject.Find("PauseMenu");
+            Time.timeScale = 1f;
+            isPaused = false;
     }
 
     public void EnemyKilled()
