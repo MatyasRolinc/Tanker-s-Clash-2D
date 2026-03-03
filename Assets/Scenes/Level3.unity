@@ -439,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   upgradeSceneName: UpgradeScene
+  pauseMenuPanel: {fileID: 0}
   enemiesRemaining: 0
 --- !u!1 &861612704
 GameObject:
@@ -662,6 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   upgradeSceneName: UpgradeScene
+  pauseMenuPanel: {fileID: 0}
   enemiesRemaining: 0
 --- !u!4 &1009540019
 Transform:

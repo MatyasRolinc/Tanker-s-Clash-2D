@@ -8,6 +8,10 @@ public class EnemyMovement : MonoBehaviour
     public float stopDuration = 0.5f;
     public float rotationSpeed = 180f;
     public float health = 3f;
+    [Header("UI")]
+    public HealthBarController healthBar;
+
+    private float maxHealth;
 
     public float obstacleCheckDistance = 2f;
     public LayerMask obstacleMask;
@@ -23,7 +27,19 @@ public class EnemyMovement : MonoBehaviour
         rb.gravityScale = 0;
         rb.freezeRotation = true;
 
+        maxHealth = health;
+        // auto-find HealthBarController in children if not assigned in Inspector
+        if (healthBar == null)
+        {
+            healthBar = GetComponentInChildren<HealthBarController>();
+        }
+
         PickNewDirection();
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(health, maxHealth);
+        }
     }
 
     void Update()
@@ -122,6 +138,11 @@ public class EnemyMovement : MonoBehaviour
             health -= dmg;
             Debug.Log($"Enemy hit by shell: -{dmg} HP (remaining {health})");
 
+            if (healthBar != null)
+            {
+                healthBar.SetHealth(health, maxHealth);
+            }
+
             if (health <= 0f)
             {
                 Die();
@@ -146,6 +167,11 @@ public class EnemyMovement : MonoBehaviour
         }
 
         // 3. ZNIČENÍ OBJEKTU
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(0f, maxHealth);
+        }
+
         Destroy(gameObject);
     }
 }

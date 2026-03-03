@@ -200,4 +200,24 @@ public class LevelManager : MonoBehaviour
         PlayerStats ps = Object.FindFirstObjectByType<PlayerStats>();
         if (ps != null) ps.AddMoney(amount);
     }
+
+    // Called when the player dies to return to the main menu scene named "MainMenu"
+    public void ReturnToMainMenuScene()
+    {
+        // Ensure game is unpaused and timeScale reset
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+
+        // Try to load scene named "MainMenu"; fallback to build index 0 if not found
+        if (Application.CanStreamedLevelBeLoaded("MainMenu"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            Debug.LogWarning("MainMenu scene not found by name, loading build index 0 instead.");
+            SceneManager.LoadScene(0);
+        }
+    }
 }
