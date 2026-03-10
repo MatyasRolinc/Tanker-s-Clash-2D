@@ -8,13 +8,14 @@ public class EnemyMovement : MonoBehaviour
     public float stopDuration = 0.5f;
     public float rotationSpeed = 180f;
     public float health = 3f;
-    [Header("UI")]
+    
     public HealthBarController healthBar;
 
     private float maxHealth;
 
     public float obstacleCheckDistance = 2f;
     public LayerMask obstacleMask;
+    public Animator[] allTrackAnimators;
 
     private Rigidbody2D rb;
     private float timer;
@@ -26,6 +27,10 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         rb.freezeRotation = true;
+        if (allTrackAnimators == null || allTrackAnimators.Length == 0)
+        {
+            allTrackAnimators = GetComponentsInChildren<Animator>();
+        }
 
         maxHealth = health;
         // auto-find HealthBarController in children if not assigned in Inspector
@@ -33,42 +38,52 @@ public class EnemyMovement : MonoBehaviour
         {
             healthBar = GetComponentInChildren<HealthBarController>();
         }
-
-        PickNewDirection();
-
         if (healthBar != null)
         {
             healthBar.SetHealth(health, maxHealth);
         }
+
+        PickNewDirection();
+
+        
     }
 
     void Update()
+{
+    timer += Time.deltaTime;
+
+    if (isMoving)
     {
-        timer += Time.deltaTime;
-
-        if (isMoving)
+        if (IsObstacleAhead())
         {
-            if (IsObstacleAhead())
-            {
-                StopAndTurn();
-                return;
-            }
-
-            if (timer >= moveDuration)
-            {
-                StopAndTurn();
-            }
-        }
-        else
-        {
-            if (timer >= stopDuration)
-            {
-                PickNewDirection();
-            }
+            StopAndTurn();
+            
         }
 
-        RotateTowardsTarget();
+        if (timer >= moveDuration)
+        {
+            StopAndTurn();
+        }
     }
+    else
+    {
+        if (timer >= stopDuration)
+        {
+            PickNewDirection();
+        }
+    }
+
+    RotateTowardsTarget();
+
+   foreach (Animator anim in allTrackAnimators)
+    {
+        if (anim != null) 
+        {
+            anim.SetBool("isMoving", isMoving);
+        }
+    }
+}
+    
 
     void FixedUpdate()
     {
