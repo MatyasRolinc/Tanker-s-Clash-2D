@@ -1,11 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class BodyScript : MonoBehaviour
 {
-    public RectTransform healthBar;
-    public TextMeshProUGUI moneyText;
+    
 
     // Již nepotřebujeme nastavovat v Inspectoru, najdeme si to sami
     private PlayerStats stats;
@@ -20,20 +20,15 @@ public class BodyScript : MonoBehaviour
         rb.gravityScale = 0f;
 
         // --- KLÍČOVÁ ZMĚNA: Napojení na globální statistiky ---
-        if (PlayerStats.instance != null)
+       stats = Object.FindFirstObjectByType<PlayerStats>();
+
+       if (stats != null)
         {
-            stats = PlayerStats.instance;
-            
-            // Propojíme UI z tohoto levelu do našeho globálního skriptu, 
-            // aby se peníze správně aktualizovaly i tam
-            stats.moneyText = this.moneyText;
-            stats.healthBar = this.healthBar;
-        }
-        else
-        {
-            Debug.LogError("Ve scéně chybí GameManager s PlayerStats!");
+            stats.AddMoney(0); // Aktualizuje UI na začátku
+            stats.UpdateUI();
         }
 
+       
         UpdateHealthBar();
         UpdateMoneyUI();
     }

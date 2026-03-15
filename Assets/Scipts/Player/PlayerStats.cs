@@ -15,23 +15,19 @@ public class PlayerStats : MonoBehaviour
     public float reloadTime = 0.75f;
     public float shellSpeed = 10f;
 
-    [HideInInspector] public RectTransform healthBar;
-    [HideInInspector] public TextMeshProUGUI moneyText;
+    [Header("UI References")]
+    [SerializeField] private RectTransform healthBar;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     void Start()
     {
         health = maxHealth;
+        
     }
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         instance = this;
-        DontDestroyOnLoad(gameObject);
 
         if (health <= 0) health = maxHealth;
     }
@@ -103,7 +99,19 @@ public class PlayerStats : MonoBehaviour
     {
         health = Mathf.Clamp(health - amount, 0, maxHealth);
         UpdateUI();
+        if (health <= 0)
+        {
+           LevelManager.Instance.Die();
+        }
     }
+
+    // Wrapper used by other scripts (keeps naming short: Hit)
+    public void Hit(int amount)
+    {
+        TakeDamage(amount);
+    }
+
+    
 
     public void UpdateUI()
     {

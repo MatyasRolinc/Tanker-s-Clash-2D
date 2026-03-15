@@ -11,12 +11,12 @@ public class LevelManager : MonoBehaviour
     public string enemyTag = "Enemy"; 
     public string upgradeSceneName = "UpgradeScene";
     public GameObject pauseMenuPanel;
+    public GameObject gameOverPanel;
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
  // Sem v Inspektoru přetáhneš ten Panel
     private bool isPaused = false;
     
-    [Header("Stav Levelu")]
     public int enemiesRemaining = 0;
     private bool levelCompletedFlag = false;
     private int lastLevelIndex = 0; // Pomocná proměnná pro sledování postupu
@@ -62,6 +62,23 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Die()
+    {
+        Debug.Log("Funkce Die() byla vyvolána!"); 
+    
+    if (gameOverPanel != null)
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+        Debug.Log("Panel aktivován, čas zastaven.");
+    }
+    else
+    {
+        // Tuhle chybu uvidíš v konzoli, pokud jsi zapomněl panel v Inspektoru přiřadit
+        Debug.LogError("POZOR: GameOverPanel není přiřazen ve skriptu hráče!");
+    }
+    }
+
     public void ReturnToMainMenu()
     {
         // Pokud se vracíme do menu, vždy se ujistíme, že hra běží normálně
@@ -70,6 +87,11 @@ public class LevelManager : MonoBehaviour
         isPaused = false;
         SceneManager.LoadScene(0);
     }
+
+    public void RestartLevel() {
+    Time.timeScale = 1f; // Tohle je kritické, aby se hra po smrti zase rozjela!
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
 
     public void PauseGame()
     {
