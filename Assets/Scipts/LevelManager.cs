@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Nastavení Levelu")]
-    // ZMĚNĚNO: Teď je tu velké "E", aby to sedělo s tvým Unity nastavením
     public string enemyTag = "Enemy"; 
     public string upgradeSceneName = "UpgradeScene";
     public bool isLastLevel = false;
@@ -18,13 +17,12 @@ public class LevelManager : MonoBehaviour
     
     public int enemiesRemaining = 0;
     private bool levelCompletedFlag = false;
-    private static int lastLevelIndex = 0; // Pomocná proměnná pro sledování postupu
+    private static int lastLevelIndex = 0;
 
     void Start()
     {
         levelCompletedFlag = false;
 
-        // Pokud jsme v upgradu, nehledáme nepřátele
         if (SceneManager.GetActiveScene().name == upgradeSceneName) return;
         PlayerStats ps = Object.FindFirstObjectByType<PlayerStats>();
         if (ps != null) 
@@ -73,7 +71,6 @@ public class LevelManager : MonoBehaviour
 
     
     
-    // Metody přidané zpět: StartGame a QuitGame
     public void StartGame()
     {
         Time.timeScale = 1f;
@@ -83,8 +80,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Die()
-    {// Tady jsme smazali to GameObject.Find, protože to jen dělá bordel
-    
+    {
     if (deathScreen != null)
     {
         deathScreen.SetActive(true);
@@ -93,14 +89,12 @@ public class LevelManager : MonoBehaviour
     }
     else
     {
-        // Tohle se vypíše, jen pokud jsi ho zapomněl přetáhnout v Inspektoru
         Debug.LogError("Chyba: V Inspektoru chybí přetažený DeathScreen!");
     }
     }
 
     public void ReturnToMainMenu()
     {
-        // Pokud se vracíme do menu, vždy se ujistíme, že hra běží normálně
         if (pauseMenu != null) pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -177,13 +171,10 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(upgradeSceneName);
         }
     }
-
-    // TATO METODA JE OPRAVENÁ PROTI CYKLENÍ
     public void LoadNextLevel()
     {
         int nextLevel = lastLevelIndex + 1;
 
-        // Kontrola: Pokud je další scéna v pořadí UpgradeMenu, přeskoč ji na další index
         string nextSceneName = GetSceneNameFromIndex(nextLevel);
         if (nextSceneName == upgradeSceneName)
         {
@@ -219,16 +210,11 @@ public class LevelManager : MonoBehaviour
         PlayerStats ps = Object.FindFirstObjectByType<PlayerStats>();
         if (ps != null) ps.AddMoney(amount);
     }
-
-    // Called when the player dies to return to the main menu scene named "MainMenu"
     public void ReturnToMainMenuScene()
     {
-        // Ensure game is unpaused and timeScale reset
         if (pauseMenu != null) pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-
-        // Try to load scene named "MainMenu"; fallback to build index 0 if not found
         if (Application.CanStreamedLevelBeLoaded("MainMenu"))
         {
             SceneManager.LoadScene("MainMenu");

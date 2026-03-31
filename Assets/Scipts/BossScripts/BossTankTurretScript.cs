@@ -3,20 +3,19 @@ using UnityEngine;
 public class BossTankTurretScript : MonoBehaviour
 {
     private Transform target;
-    public Transform firePoint;         // odkud vystřelí (pokud null => this.transform)
+    public Transform firePoint; 
     public GameObject shellPrefab;
     [Header("Animation / VFX")]
-    public Animator animator; // optional Animator on the turret
+    public Animator animator;
     public string fireTriggerName = "Fire";
-    public GameObject muzzleFlashPrefab; // optional prefab to spawn at firepoint
+    public GameObject muzzleFlashPrefab; 
     public float muzzleFlashDuration = 0.6f;
     public float shellSpeed = 8f;
-    public int damage = 1; // kolik HP uděluje jeho střela
+    public int damage = 1;
 
-    public float rotationSpeed = 80f;  // rychlost otáčení (°/s)
-    public float angleOffset = -90f;      // ruční posun úhlu
-
-    public float shootInterval = 7f;    // interval mezi výstřely (sekundy)
+    public float rotationSpeed = 80f; 
+    public float angleOffset = -90f;     
+    public float shootInterval = 7f;    
     private float nextFireTime = 0f;
 
     void Start()
@@ -38,7 +37,7 @@ public class BossTankTurretScript : MonoBehaviour
 
             Vector2 dir = (Vector2)(target.position - transform.position);
 
-            // tady přidáme offset
+           
             float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
 
             float newAngle = Mathf.MoveTowardsAngle(
@@ -47,7 +46,7 @@ public class BossTankTurretScript : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
             transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-            // kontrola přímé viditelnosti hráče (raycast) — pokud první hit je hráč => střílej
+        
             Vector2 origin = firePoint.position;
             Vector2 toPlayer = (Vector2)(target.position - firePoint.position);
             float dist = toPlayer.magnitude;
@@ -59,7 +58,6 @@ public class BossTankTurretScript : MonoBehaviour
             if (Time.time >= nextFireTime)
             {
                 Shoot();
-                // play firing animation / VFX template
                 PlayFireAnimation(firePoint);
                 nextFireTime = Time.time + shootInterval;
             }
@@ -82,8 +80,6 @@ public class BossTankTurretScript : MonoBehaviour
         Destroy(shell, 8f);
     }
 
-    // --- ANIMACE VÝSTŘELU (šablona) ---
-    // Volat `PlayFireAnimation(firePoint)` při výstřelu.
     public void PlayFireAnimation(Transform firePoint)
     {
         if (animator != null && !string.IsNullOrEmpty(fireTriggerName))

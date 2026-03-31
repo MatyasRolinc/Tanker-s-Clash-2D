@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public class BodyScript : MonoBehaviour
 {
     
-
-    // Již nepotřebujeme nastavovat v Inspectoru, najdeme si to sami
     private PlayerStats stats;
-
     private Rigidbody2D rb;
     private float moveInput = 0f;
     private float rotateInput = 0f;

@@ -35,7 +35,6 @@ public class EnemyMovement : MonoBehaviour
             allTrackAnimators = GetComponentsInChildren<Animator>();
         }
 
-        // auto-find HealthBarController in children if not assigned in Inspector
         if (healthBar == null)
         {
             healthBar = GetComponentInChildren<HealthBarController>();
@@ -138,10 +137,8 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Kontrola, zda nás zasáhla střela
         if (collision.gameObject.CompareTag("TankShell"))
         {
-            // Zničit střelu
             Destroy(collision.gameObject);
 
             
@@ -168,15 +165,11 @@ public class EnemyMovement : MonoBehaviour
 
     void Die()
     {
-        // 1. UDĚLENÍ ODMĚNY (Peníze do PlayerStats)
         EnemyReward reward = GetComponent<EnemyReward>();
         if (reward != null)
         {
-            reward.GiveReward(); // Použije tvou novou přímočarou metodu
+            reward.GiveReward();
         }
-
-        // 2. OZNÁMENÍ LEVEL MANAGERU (Pro přepnutí levelu)
-        // Předpokládám, že LevelManager.Instance hlídá počet nepřátel v levelu
         if (LevelManager.Instance != null)
         {
             LevelManager.Instance.EnemyKilled();

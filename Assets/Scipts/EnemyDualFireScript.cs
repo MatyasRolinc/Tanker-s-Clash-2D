@@ -35,7 +35,6 @@ public float shellSpeed = 8f;
 
             Vector2 dir = (Vector2)(target.position - transform.position);
 
-            // tady přidáme offset
             float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
 
             float newAngle = Mathf.MoveTowardsAngle(
@@ -44,7 +43,6 @@ public float shellSpeed = 8f;
                 rotationSpeed * Time.deltaTime
             );
             transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-            // kontrola přímé viditelnosti hráče (raycast) — pokud některý firepoint vidí hráče => střílej oběma
             bool canSee = false;
             // levý
             Vector2 originL = firePointLeft.position;

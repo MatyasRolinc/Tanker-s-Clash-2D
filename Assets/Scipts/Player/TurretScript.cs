@@ -8,7 +8,6 @@ public class TurrentScript : MonoBehaviour
     public float fireEffectDuration = 0.5f;
     public Transform spawnPoint;
 
-    // ruční posun úhlu (stejně jako u enemy)
     public float angleOffset = 0f;
 
     // Reference se nyní napojí na globální staty
@@ -19,7 +18,6 @@ public class TurrentScript : MonoBehaviour
 
     void Start()
     {
-        // --- ZMĚNA: Napojení na globální staty přes Singleton ---
         if (PlayerStats.instance != null)
         {
             stats = PlayerStats.instance;
@@ -40,13 +38,12 @@ public class TurrentScript : MonoBehaviour
 
     public void Turn()
     {
-        if (Camera.main == null) return; // Ochrana proti chybě, pokud chybí kamera
+        if (Camera.main == null) return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + angleOffset;
         
-        // Úprava rotace -90f závisí na tom, jak máš otočený sprite věže
         transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
     }
 

@@ -3,12 +3,12 @@ using UnityEngine;
 public class BossBurstShell : MonoBehaviour
 {
     [Header("Nastavení rozdělení")]
-    public GameObject shellPrefab;    // Prefab střely, na které se to rozdělí (může to být ta samá)
-    public int numberOfShards = 3;    // Na kolik kusů se rozdělí (3 nebo 4)
-    public float spreadAngle = 30f;   // Celkový úhel rozptylu (vějíře)
-    public float timeToSplit = 0.5f;  // Za jak dlouho se rozdělí
+    public GameObject shellPrefab;
+    public int numberOfShards = 3;
+    public float spreadAngle = 30f;
+    public float timeToSplit = 0.5f;
 
-    public int damage = 1; // nastaví se při spawnování (věž, hráč apod.)
+    public int damage = 1;
 
     private bool hasSplit = false;
     private Rigidbody2D rb;
@@ -53,7 +53,7 @@ public class BossBurstShell : MonoBehaviour
             BossBurstShell script = shard.GetComponent<BossBurstShell>();
             if (script != null)
             {
-                script.enabled = false; // Vypneme rozdělovací logiku na střepinách
+                script.enabled = false;
             }
         }
 

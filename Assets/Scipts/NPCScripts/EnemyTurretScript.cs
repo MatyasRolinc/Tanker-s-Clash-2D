@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyTurretScript : MonoBehaviour
 {
-    private Transform target;            // hráč (tank)
+    private Transform target;
     public Transform firePoint;         
     public GameObject shellPrefab;
     public GameObject muzzleFlashPrefab; 
@@ -32,7 +32,7 @@ public class EnemyTurretScript : MonoBehaviour
 
             Vector2 dir = (Vector2)(target.position - transform.position);
 
-            // tady přidáme offset
+            // tady přidám offset
             float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
 
             float newAngle = Mathf.MoveTowardsAngle(
@@ -41,7 +41,6 @@ public class EnemyTurretScript : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
             transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-            // kontrola přímé viditelnosti hráče (raycast) — pokud první hit je hráč => střílej
             Vector2 origin = firePoint.position;
             Vector2 toPlayer = (Vector2)(target.position - firePoint.position);
             float dist = toPlayer.magnitude;

@@ -3,22 +3,22 @@ using UnityEngine;
 public class BossFastScript : MonoBehaviour
 {
     private Transform target;
-    public Transform firePoint;         // odkud vystřelí (pokud null => this.transform)
+    public Transform firePoint;
     public GameObject shellPrefab;
     [Header("Animation / VFX")]
-    public Animator animator; // optional Animator on the turret
+    public Animator animator;
     public string fireTriggerName = "Fire";
-    public GameObject muzzleFlashPrefab; // optional prefab to spawn at firepoint
+    public GameObject muzzleFlashPrefab;
     public float muzzleFlashDuration = 0.5f;
     public float shellSpeed = 8f;
-    public int damage = 1; // kolik HP uděluje jeho střela
+    public int damage = 1;
 
-    public float rotationSpeed = 80f;  // rychlost otáčení (°/s)
-    public float angleOffset = -90f;      // ruční posun úhlu
+    public float rotationSpeed = 80f;
+    public float angleOffset = -90f;
 
-    public int shotsPerBurst = 5;          // počet střel v dávce
-    public float burstShotInterval = 0.5f; // čas mezi střelami v dávce
-    public float burstCooldown = 4f;       // čas mezi dávkami
+    public int shotsPerBurst = 5;
+    public float burstShotInterval = 0.5f;
+    public float burstCooldown = 4f;
     private int shotsFiredInBurst = 0;
     private bool burstActive = false;
     private float nextFireTime = 0f;
@@ -42,7 +42,6 @@ public class BossFastScript : MonoBehaviour
 
             Vector2 dir = (Vector2)(target.position - transform.position);
 
-            // tady přidáme offset
             float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
 
             float newAngle = Mathf.MoveTowardsAngle(
@@ -51,7 +50,6 @@ public class BossFastScript : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
             transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-            // kontrola přímé viditelnosti hráče (raycast) — pokud první hit je hráč => střílej
             Vector2 origin = firePoint.position;
             Vector2 toPlayer = (Vector2)(target.position - firePoint.position);
             float dist = toPlayer.magnitude;
@@ -104,8 +102,6 @@ public class BossFastScript : MonoBehaviour
         Destroy(shell, 8f);
     }
 
-    // --- ANIMACE VÝSTŘELU (šablona) ---
-    // Volat `PlayFireAnimation(firePoint)` při výstřelu.
     public void PlayFireAnimation(Transform firePoint)
     {
         if (animator != null && !string.IsNullOrEmpty(fireTriggerName))

@@ -36,8 +36,8 @@ public class UpgradeMenuUIScript : MonoBehaviour
 
     void OnEnable()
 {
-    // Zkusíme najít instanci hned několikrát
-    Invoke(nameof(LateRefresh), 0.1f); // Počkáme 0.1 sekundy, než se vše usadí
+
+    Invoke(nameof(LateRefresh), 0.1f);
 }
 
 void LateRefresh()
@@ -66,7 +66,6 @@ void LateRefresh()
     playerStats.UpdateUI();
 }
 
-    // --- METODY PRO TLAČÍTKA ---
 
     public void BuyHealthUpgrade()
     {   RefreshUI();    
