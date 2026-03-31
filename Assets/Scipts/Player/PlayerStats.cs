@@ -1,17 +1,18 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats instance;
 
-    [Header("Statistiky")]
+    [Header("Statistics")]
     public int maxHealth = 5;
     public int health = 5;
     public float moveSpeed = 5f;
     public float rotationSpeed = 150f;
-    public int damage = 1;
-    public int money = 5000;
+    public float damage = 1;
+    public int money = 0;
     public float reloadTime = 0.75f;
     public float shellSpeed = 10f;
 
@@ -19,29 +20,60 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private TextMeshProUGUI moneyText;
 
-    void Start()
+    void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu")
+    {
+        Destroy(gameObject);
+    }
+    else {
         health = maxHealth;
+        GameObject hbObj = GameObject.Find("HealthBarFill");
+        if (hbObj != null) healthBar = hbObj.GetComponent<RectTransform>();
+
+        GameObject mTextObj = GameObject.Find("MoneyField");
+        if (mTextObj != null) moneyText = mTextObj.GetComponent<TextMeshProUGUI>();
+        UpdateUI();
+    }
         
     }
 
-    void Awake()
+    void Start()
     {
-        instance = this;
-
-        if (health <= 0) health = maxHealth;
+        UpdateUI();
     }
 
-    // --- LOGIKA FINANCÍ ---
     public bool SpendMoney(int cost)
     {
         if (money >= cost)
         {
             money -= cost;
             UpdateUI();
-            return true; // Platba proběhla
+            return true;
         }
-        return false; // Málo peněz
+        return false;
     }
 
     public void AddMoney(int amount)
@@ -49,20 +81,19 @@ public class PlayerStats : MonoBehaviour
         money += amount;
         UpdateUI();
     }
+
     public void ResetHealth()
     {
         health = maxHealth;
-        
+        UpdateUI();
     }
 
-    // --- LOGIKA UPGRADŮ ---
-    // Tyto metody budeš volat z tlačítek v Upgrade Menu
     public void UpgradeMaxHealth(int cost)
     {
         if (SpendMoney(cost))
         {
             maxHealth += 1;
-            health = maxHealth; // Přidá život i k aktuálnímu zdraví
+            health = maxHealth; 
             UpdateUI();
         }
     }
@@ -80,7 +111,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (SpendMoney(cost))
         {
-            reloadTime -= 0.05f; // Sníží čas nabíjení = střílíš rychleji
+            reloadTime -= 0.05f;
             UpdateUI();
         }
     }
@@ -89,29 +120,25 @@ public class PlayerStats : MonoBehaviour
     {
         if (SpendMoney(cost))
         {
-            damage += 1;
+            damage += 0.5f;
             UpdateUI();
         }
     }
 
-    // --- SYSTÉM ZDRAVÍ ---
     public void TakeDamage(int amount)
     {
         health = Mathf.Clamp(health - amount, 0, maxHealth);
         UpdateUI();
         if (health <= 0)
         {
-           LevelManager.Instance.Die();
+           if (LevelManager.Instance != null) LevelManager.Instance.Die();
         }
     }
 
-    // Wrapper used by other scripts (keeps naming short: Hit)
     public void Hit(int amount)
     {
         TakeDamage(amount);
     }
-
-    
 
     public void UpdateUI()
     {
@@ -123,4 +150,6 @@ public class PlayerStats : MonoBehaviour
         if (moneyText != null)
             moneyText.text = money.ToString();
     }
+
+   
 }

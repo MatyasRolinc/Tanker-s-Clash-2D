@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7604573943796070468}
   - component: {fileID: 7290337885376699861}
   - component: {fileID: 7037242491405299563}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 1935381717396417034}
   - component: {fileID: 4279462492358489132}
   - component: {fileID: 5937482745195921381}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Backgground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4353798030413505625}
   - component: {fileID: 2785112972170498315}
   - component: {fileID: 1686072096216382074}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyTurretHeavy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 8825558557092505005, guid: 72fccf77330223b4bb191f0015860a47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -265,14 +265,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   firePoint: {fileID: 6412187055418045544}
   shellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
-  damage: 1
-  shellSpeed: 8
+  muzzleFlashPrefab: {fileID: 1241743387052546218, guid: e163978c9abe5b048b503141d9f53414, type: 3}
+  muzzleFlashDuration: 0.6
+  damage: 3
+  shellSpeed: 13
   rotationSpeed: 80
   angleOffset: -90
-  shootInterval: 5
+  shootInterval: 4
 --- !u!1 &5696193321463381223
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +285,7 @@ GameObject:
   - component: {fileID: 1679966210853516939}
   - component: {fileID: 1782414888623382225}
   - component: {fileID: 5910364107147411826}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +350,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -395,7 +396,7 @@ GameObject:
   - component: {fileID: 3696044365425062165}
   - component: {fileID: 5652938048729114765}
   - component: {fileID: 1081310228165769984}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthCanvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +445,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &5652938048729114765
 MonoBehaviour:
@@ -496,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5468612746008590485}
   - component: {fileID: 2992726740082253076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyHeavy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +564,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: -4808999197000344924, guid: b3ac0c2b9dc4e5e459e6c1750f1d4936, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -589,7 +590,7 @@ GameObject:
   - component: {fileID: 5244006598967009882}
   - component: {fileID: 5546033812453415987}
   - component: {fileID: 4326832494314566547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HeavyTank 1 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -708,19 +709,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f100f244f488f3143b881f6e8cbd528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  moveDuration: 2
+  moveSpeed: 3
+  moveDuration: 3
   stopDuration: 0.5
-  rotationSpeed: 130
+  rotationSpeed: 80
   health: 10
-  healthBar: {fileID: 0}
-  obstacleCheckDistance: 6
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
+  healthBar: {fileID: 7037242491405299563}
   allTrackAnimators:
   - {fileID: 4720400866839778192}
-  - {fileID: 0}
+  - {fileID: 5910364107147411826}
+  obstacleCheckDistance: 5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &5546033812453415987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -779,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bbd86b6afde9340898e1cf33d6e3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardAmount: 400
+  rewardAmount: 200
 --- !u!1 &8185797511615284208
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +792,7 @@ GameObject:
   - component: {fileID: 4925833906409837425}
   - component: {fileID: 5323180754621965049}
   - component: {fileID: 4720400866839778192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +857,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

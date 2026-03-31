@@ -16,9 +16,9 @@ public class UpgradeMenuUIScript : MonoBehaviour
     [Header("Ceny")]
     public int healthCost = 50;
     public int speedCost = 40;
-    public int reloadCost = 60;
+    public int reloadCost = 50;
     public int shellSpeedCost = 40;
-    public int damageCost = 70;
+    public int damageCost = 100;
 
     void Start() 
     { 
@@ -34,9 +34,19 @@ public class UpgradeMenuUIScript : MonoBehaviour
         }
     }
 
+    void OnEnable()
+{
+    // Zkusíme najít instanci hned několikrát
+    Invoke(nameof(LateRefresh), 0.1f); // Počkáme 0.1 sekundy, než se vše usadí
+}
+
+void LateRefresh()
+{
+    RefreshUI();
+}
+
     public void RefreshUI()
 {
-    // Toto zajistí, že vždy bereme data z té "nesmrtelné" instance
     playerStats = PlayerStats.instance;
 
     if (playerStats == null) 
@@ -45,7 +55,6 @@ public class UpgradeMenuUIScript : MonoBehaviour
         return;
     }
 
-    // Teď vypíšeme hodnoty - Všimni si Debug logu, ten nám řekne pravdu
     Debug.Log($"Vypisuji do UI: HP={playerStats.maxHealth}, Speed={playerStats.moveSpeed}");
 
     if (hpTMP != null) hpTMP.text = playerStats.maxHealth.ToString();
@@ -61,55 +70,35 @@ public class UpgradeMenuUIScript : MonoBehaviour
 
     public void BuyHealthUpgrade()
     {   RefreshUI();    
-        Debug.Log("KLIKNUTO na Health Upgrade");
-        Debug.Log("BuyHealthUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
-        if (CheckStats() && playerStats.SpendMoney(healthCost))
+        if (CheckStats())
         {
-            RefreshUI();
-            playerStats.maxHealth += 1;
-            playerStats.health += 1; // Přidá život i do aktuálního zdraví
-            Debug.Log("<color=cyan>Upgrade KOUPEN! Max HP: </color>" + playerStats.maxHealth);
-            
+            playerStats.UpgradeMaxHealth(healthCost);
         }
         RefreshUI();
     }
 
     public void BuySpeedUpgrade()
     {   RefreshUI();
-        Debug.Log("KLIKNUTO na Speed Upgrade");
-        Debug.Log("BuySpeedUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
-        if (CheckStats() && playerStats.SpendMoney(speedCost))
+        if (CheckStats())
         {
-            playerStats.moveSpeed += 0.5f;
-            Debug.Log("<color=cyan>Upgrade KOUPEN! Rychlost: </color>" + playerStats.moveSpeed);
-            
+            playerStats.UpgradeMoveSpeed(speedCost);
         }
         RefreshUI();
     }
 
     public void BuyReloadUpgrade()
     {   RefreshUI();
-        Debug.Log("KLIKNUTO na Reload Upgrade");
-        Debug.Log("BuyReloadUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
-        if (CheckStats() && playerStats.SpendMoney(reloadCost))
         {
-            // Snížení času (přebíjíš rychleji), minimum je 0.1s
-            playerStats.reloadTime = Mathf.Max(0.1f, playerStats.reloadTime - 0.05f);
-            Debug.Log("<color=cyan>Upgrade KOUPEN! Reload Time: </color>" + playerStats.reloadTime);
-            
+            playerStats.UpgradeReloadTime(reloadCost);
         }
         RefreshUI();
     }
 
     public void BuyShellSpeedUpgrade()
     {   RefreshUI();
-        Debug.Log("KLIKNUTO na Shell Speed Upgrade");
-        Debug.Log("BuyShellSpeedUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
         if (CheckStats() && playerStats.SpendMoney(shellSpeedCost))
         {
             playerStats.shellSpeed += 1.0f;
-            Debug.Log("<color=cyan>Upgrade KOUPEN! Rychlost střely: </color>" + playerStats.shellSpeed);
-            
         }
         RefreshUI();
     }
@@ -117,12 +106,9 @@ public class UpgradeMenuUIScript : MonoBehaviour
     public void BuyDamageUpgrade()
     {
         RefreshUI();
-        Debug.Log("KLIKNUTO na Damage Upgrade");
-        Debug.Log("BuyDamageUpgrade called. playerStats present=" + (playerStats != null) + ", money=" + (playerStats!=null?playerStats.money.ToString():"null"));
         if (CheckStats())
         {
             playerStats.UpgradeDamage(damageCost);
-            Debug.Log("<color=cyan>Upgrade KOUPEN! Damage: </color>" + playerStats.damage);
         }
         RefreshUI();
     }
@@ -131,27 +117,19 @@ public class UpgradeMenuUIScript : MonoBehaviour
     public void ClickNextLevel()
     {
         Debug.Log("Tlačítko Next Level stisknuto.");
-
-    // Pokusíme se najít LevelManager v aktuální scéně
-    // Pokud ho tam máš jako Singleton (LevelManager.Instance)
     if (LevelManager.Instance != null)
     {
-        // Tady voláme metodu, kterou máš v LevelManageru
-        // Pokud se jmenuje jinak (např. LoadNextScene), přejmenuj to zde
         LevelManager.Instance.LoadNextLevel(); 
     }
     else
     {
-        // Pokud LevelManager není Singleton, zkusíme ho najít přes Find
         LevelManager lm = FindFirstObjectByType<LevelManager>();
         if (lm != null)
         {
             lm.LoadNextLevel();
         }
-       
     }
     }
-
     // Pomocná metoda, aby se kód neopakoval
     private bool CheckStats()
     {

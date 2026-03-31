@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4634115491509656800}
   - component: {fileID: 1728542123788425443}
   - component: {fileID: 9132222137772740301}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Backgground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1086725439358293593}
   - component: {fileID: 2087109273587130663}
   - component: {fileID: 9024339196724111084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 447672833895284741}
   - component: {fileID: 2403715163721722795}
   - component: {fileID: 1150966600283917332}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MediumTank 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -267,15 +267,15 @@ MonoBehaviour:
   moveDuration: 2
   stopDuration: 0.5
   rotationSpeed: 180
-  health: 3
-  healthBar: {fileID: 0}
-  obstacleCheckDistance: 2
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
+  health: 6
+  healthBar: {fileID: 347822556581584703}
   allTrackAnimators:
   - {fileID: 9024339196724111084}
   - {fileID: 3450551064720024907}
+  obstacleCheckDistance: 5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!212 &447672833895284741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bbd86b6afde9340898e1cf33d6e3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardAmount: 250
+  rewardAmount: 125
 --- !u!1 &1903208000212037325
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 1416422967385163281}
   - component: {fileID: 5264468813436428384}
   - component: {fileID: 492007894408723031}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthCanvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &5264468813436428384
 MonoBehaviour:
@@ -534,7 +534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 933922304550796101}
   - component: {fileID: 5122831254594822679}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyMedium_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 8066804509677240216, guid: 599adf11f6d46df4e9f3ddea20ac882a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 5444383886127107614}
   - component: {fileID: 2524491308426771221}
   - component: {fileID: 347822556581584703}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 4929876380116387570}
   - component: {fileID: 726171326699704535}
   - component: {fileID: 8177575422649255886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyTurretMedium_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,14 +728,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8473834226768813296}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.13, y: 0.68, z: -0.010220793}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7108597176155094493}
   m_Father: {fileID: 5520095305860845246}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &726171326699704535
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -779,7 +779,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 118412049894981172, guid: 0a743e8def3c2a24eb22163cf9e5de77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -803,14 +803,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   firePoint: {fileID: 7108597176155094493}
   shellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
-  damage: 1
-  shellSpeed: 8
+  muzzleFlashPrefab: {fileID: 1241743387052546218, guid: e163978c9abe5b048b503141d9f53414, type: 3}
+  muzzleFlashDuration: 0.6
+  damage: 2
+  shellSpeed: 10
   rotationSpeed: 120
   angleOffset: -90
-  shootInterval: 5
+  shootInterval: 3
 --- !u!1 &8610058187949527613
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +823,7 @@ GameObject:
   - component: {fileID: 2181184433897020626}
   - component: {fileID: 3745759468834262300}
   - component: {fileID: 3450551064720024907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +888,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

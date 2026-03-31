@@ -10,12 +10,12 @@ public class EnemyMovement : MonoBehaviour
     public float health = 3f;
     
     public HealthBarController healthBar;
+    public Animator[] allTrackAnimators;
 
     private float maxHealth;
 
     public float obstacleCheckDistance = 2f;
     public LayerMask obstacleMask;
-    public Animator[] allTrackAnimators;
 
     private Rigidbody2D rb;
     private float timer;
@@ -27,12 +27,14 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         rb.freezeRotation = true;
+
+        maxHealth = health;
+
         if (allTrackAnimators == null || allTrackAnimators.Length == 0)
         {
             allTrackAnimators = GetComponentsInChildren<Animator>();
         }
 
-        maxHealth = health;
         // auto-find HealthBarController in children if not assigned in Inspector
         if (healthBar == null)
         {
@@ -49,40 +51,39 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void Update()
-{
-    timer += Time.deltaTime;
-
-    if (isMoving)
     {
-        if (IsObstacleAhead())
+        timer += Time.deltaTime;
+
+        if (isMoving)
         {
-            StopAndTurn();
-            
+            if (IsObstacleAhead())
+            {
+                StopAndTurn();
+            }
+
+            if (timer >= moveDuration)
+            {
+                StopAndTurn();
+            }
+        }
+        else
+        {
+            if (timer >= stopDuration)
+            {
+                PickNewDirection();
+            }
         }
 
-        if (timer >= moveDuration)
+        RotateTowardsTarget();
+
+        foreach (Animator anim in allTrackAnimators)
         {
-            StopAndTurn();
+            if (anim != null)
+            {
+                anim.SetBool("isMoving", isMoving);
+            }
         }
     }
-    else
-    {
-        if (timer >= stopDuration)
-        {
-            PickNewDirection();
-        }
-    }
-
-    RotateTowardsTarget();
-
-   foreach (Animator anim in allTrackAnimators)
-    {
-        if (anim != null) 
-        {
-            anim.SetBool("isMoving", isMoving);
-        }
-    }
-}
     
 
     void FixedUpdate()
@@ -143,8 +144,8 @@ public class EnemyMovement : MonoBehaviour
             // Zničit střelu
             Destroy(collision.gameObject);
 
-            // Snížit zdraví podle poškození hráče (pokud existuje), jinak použít 1
-            int dmg = 1;
+            
+            float dmg = 0.5f;
             if (PlayerStats.instance != null)
             {
                 dmg = PlayerStats.instance.damage;

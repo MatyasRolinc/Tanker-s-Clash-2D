@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3577099288438542933}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarrelTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,8 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5326051831879868838}
   - component: {fileID: 5002503006738376270}
-  - component: {fileID: 8531754086518552536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tiger2_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,20 +118,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8531754086518552536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5518567434313686061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9627b376d35917b428ff46e341c93900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  moneyText: {fileID: 0}
 --- !u!1 &5983488651731552131
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +129,7 @@ GameObject:
   - component: {fileID: 6135261518249639059}
   - component: {fileID: 6380205435197811143}
   - component: {fileID: 7868566810240510658}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tiger1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +220,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TankShellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
+  fireEffectPrefab: {fileID: 1241743387052546218, guid: e163978c9abe5b048b503141d9f53414, type: 3}
+  fireEffectDuration: 0.5
   spawnPoint: {fileID: 3577099288438542933}
+  angleOffset: -90
 --- !u!1 &9067023934982969721
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +236,8 @@ GameObject:
   - component: {fileID: 1532769239669221952}
   - component: {fileID: 2084038554801413195}
   - component: {fileID: 2539971997591438878}
-  m_Layer: 0
+  - component: {fileID: 8777788981065693607}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -400,3 +389,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8777788981065693607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067023934982969721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9627b376d35917b428ff46e341c93900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

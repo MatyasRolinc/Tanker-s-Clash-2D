@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5468750258241255599}
   - component: {fileID: 5829063942351253021}
   - component: {fileID: 8381574476505646449}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Backgground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,8 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7913692925060788191}
   - component: {fileID: 4807147256371943095}
-  - component: {fileID: 1441865107291429495}
-  m_Layer: 0
+  - component: {fileID: 1621090720509033557}
+  m_Layer: 6
   m_Name: DualTankTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7939655268091056468, guid: f2ddbe24260e6974dadc5692baad70e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -164,7 +164,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1441865107291429495
+--- !u!114 &1621090720509033557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,17 +173,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123998680684201539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
+  m_Script: {fileID: 11500000, guid: f136da7acd175244fbe069b25519d3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  firePoint: {fileID: 6207715410829668347}
+  firePointLeft: {fileID: 6039366613566351561}
+  firePointRight: {fileID: 4207548998196079559}
   shellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
+  muzzleFlashPrefab: {fileID: 1241743387052546218, guid: e163978c9abe5b048b503141d9f53414, type: 3}
+  muzzleFlashDuration: 0.6
   damage: 1
   shellSpeed: 8
   rotationSpeed: 120
   angleOffset: -90
-  shootInterval: 5
+  shootInterval: 0.8
 --- !u!1 &1456223406903095392
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6028438893398543589}
   - component: {fileID: 9186632106368206021}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DualTankHull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +263,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -4076951845615797610, guid: 8c4353b7f89e67045826c1fe371b0308, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -285,7 +287,7 @@ GameObject:
   - component: {fileID: 7237015372771791623}
   - component: {fileID: 6378969241137935889}
   - component: {fileID: 6881882055021914392}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthCanvas (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +336,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!114 &6378969241137935889
 MonoBehaviour:
@@ -387,7 +389,7 @@ GameObject:
   - component: {fileID: 3761476970778498241}
   - component: {fileID: 5664174386031411565}
   - component: {fileID: 5971847490058078792}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +454,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -496,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6039366613566351561}
   m_Layer: 6
-  m_Name: enemyFirePoint (2)
+  m_Name: enemyFirePointL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,9 +532,9 @@ GameObject:
   - component: {fileID: 3649908511641440609}
   - component: {fileID: 2490658408595975185}
   - component: {fileID: 3824277285332423379}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DualTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -594,19 +596,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f100f244f488f3143b881f6e8cbd528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
   moveDuration: 2
   stopDuration: 0.5
   rotationSpeed: 180
-  health: 3
+  health: 5
   healthBar: {fileID: 4101839151188472987}
-  obstacleCheckDistance: 2
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
   allTrackAnimators:
   - {fileID: 5039926733106311083}
   - {fileID: 5971847490058078792}
+  obstacleCheckDistance: 5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &2490658408595975185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,7 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bbd86b6afde9340898e1cf33d6e3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardAmount: 50000
+  rewardAmount: 125
 --- !u!61 &3824277285332423379
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -678,7 +680,7 @@ GameObject:
   - component: {fileID: 7586560838095418156}
   - component: {fileID: 1089883464667041059}
   - component: {fileID: 4101839151188472987}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +766,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6207715410829668347}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +801,7 @@ GameObject:
   - component: {fileID: 1737644507319516889}
   - component: {fileID: 1945874978893902821}
   - component: {fileID: 5039926733106311083}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_2_A_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +866,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1778754572126144683, guid: 511b76afafc86f8438e7fb350e85d03e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -908,7 +910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4207548998196079559}
   m_Layer: 6
-  m_Name: enemyFirePoint (1)
+  m_Name: enemyFirePointR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

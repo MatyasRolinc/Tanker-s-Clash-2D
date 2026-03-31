@@ -19,16 +19,14 @@ public class BodyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
 
-        // --- KLÍČOVÁ ZMĚNA: Napojení na globální statistiky ---
        stats = Object.FindFirstObjectByType<PlayerStats>();
 
        if (stats != null)
         {
-            stats.AddMoney(0); // Aktualizuje UI na začátku
+            stats.AddMoney(0); 
             stats.UpdateUI();
         }
 
-       
         UpdateHealthBar();
         UpdateMoneyUI();
     }
@@ -38,7 +36,6 @@ public class BodyScript : MonoBehaviour
         moveInput = 0f;
         rotateInput = 0f;
 
-        // Ovládání tanku (S/W pro pohyb, A/D pro rotaci)
         if (Input.GetKey(KeyCode.S)) moveInput = 1f;
         else if (Input.GetKey(KeyCode.W)) moveInput = -1f;
 
@@ -53,7 +50,7 @@ public class BodyScript : MonoBehaviour
 
     public void MoveTank(float moveValue, float rotateValue)
     {
-        // Bereme hodnoty přímo z globálních statistik
+        
         float speed = (stats != null) ? stats.moveSpeed : 5f;
         float rotSpeed = (stats != null) ? stats.rotationSpeed : 150f;
 

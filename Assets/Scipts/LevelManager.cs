@@ -1,51 +1,71 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance;
-
     [Header("Nastavení Levelu")]
     // ZMĚNĚNO: Teď je tu velké "E", aby to sedělo s tvým Unity nastavením
     public string enemyTag = "Enemy"; 
     public string upgradeSceneName = "UpgradeScene";
-    public GameObject pauseMenuPanel;
-    public GameObject gameOverPanel;
-    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
-    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
- // Sem v Inspektoru přetáhneš ten Panel
+    public bool isLastLevel = false;
+    public GameObject pauseMenu;
+    public GameObject deathScreen;
+    public GameObject winScreen;
     private bool isPaused = false;
+    public static LevelManager Instance;
     
     public int enemiesRemaining = 0;
     private bool levelCompletedFlag = false;
-    private int lastLevelIndex = 0; // Pomocná proměnná pro sledování postupu
+    private static int lastLevelIndex = 0; // Pomocná proměnná pro sledování postupu
 
-    private void Awake()
+    void Start()
     {
-        if (Instance == null)
+        levelCompletedFlag = false;
+
+        // Pokud jsme v upgradu, nehledáme nepřátele
+        if (SceneManager.GetActiveScene().name == upgradeSceneName) return;
+        PlayerStats ps = Object.FindFirstObjectByType<PlayerStats>();
+        if (ps != null) 
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            ps.ResetHealth();
         }
-        else
+
+        try 
         {
-            Destroy(gameObject);
-            return;
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+            enemiesRemaining = enemies.Length;
+            Debug.Log($"Scéna {SceneManager.GetActiveScene().name} načtena. Nepřátel: {enemiesRemaining}");
         }
+        catch 
+        {
+            enemiesRemaining = 0;
+        }
+
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+    void Awake()
+    {
+        Instance = this;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (pauseMenu == null)
+            {
+                pauseMenu = GameObject.Find("PauseMenu");
+            }
             if (isPaused)
             {
                 ResumeGame();
             }
             else
             {
-                Debug.Log("ESC byl stisknut!");
+                if (deathScreen != null && deathScreen.activeSelf) return;
                 PauseGame();
             }
         }
@@ -63,97 +83,59 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Die()
-    {
-        Debug.Log("Funkce Die() byla vyvolána!"); 
+    {// Tady jsme smazali to GameObject.Find, protože to jen dělá bordel
     
-    if (gameOverPanel != null)
+    if (deathScreen != null)
     {
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
-        Debug.Log("Panel aktivován, čas zastaven.");
+        deathScreen.SetActive(true);
+        Time.timeScale = 0f; 
+        Debug.Log("Hráč zemřel, DeathScreen aktivováno.");
     }
     else
     {
-        // Tuhle chybu uvidíš v konzoli, pokud jsi zapomněl panel v Inspektoru přiřadit
-        Debug.LogError("POZOR: GameOverPanel není přiřazen ve skriptu hráče!");
+        // Tohle se vypíše, jen pokud jsi ho zapomněl přetáhnout v Inspektoru
+        Debug.LogError("Chyba: V Inspektoru chybí přetažený DeathScreen!");
     }
     }
 
     public void ReturnToMainMenu()
     {
         // Pokud se vracíme do menu, vždy se ujistíme, že hra běží normálně
-        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        if (pauseMenu != null) pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
         SceneManager.LoadScene(0);
     }
 
-    public void RestartLevel() {
-    Time.timeScale = 1f; // Tohle je kritické, aby se hra po smrti zase rozjela!
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-}
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     public void PauseGame()
     {
-    if (pauseMenuPanel == null) return; // Pojistka, kdybychom panel zapomněli přiřadit
-
-    pauseMenuPanel.SetActive(true);
-    Time.timeScale = 0f; // TADY ZASTAVÍME ČAS VE HŘE
-    isPaused = true;
+        Time.timeScale = 0f;
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(true);
+        }
+        isPaused = true;
     }
 
     public void ResumeGame()
     {
-        if (pauseMenuPanel == null) return;
-
-        pauseMenuPanel.SetActive(false);
-        Time.timeScale = 1f; // znovu spustíme čas
+        Time.timeScale = 1f;
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
         isPaused = false;
     }
     public void QuitGame()
     {
         Debug.Log("Vypínám hru...");
         Application.Quit();
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        levelCompletedFlag = false;
-
-        // Pokud jsme v upgradu, nehledáme nepřátele
-        if (scene.name == upgradeSceneName) return;
-        PlayerStats ps = Object.FindFirstObjectByType<PlayerStats>();
-        if (ps != null) 
-        {
-            ps.ResetHealth();
-        }
-
-        try 
-        {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-            enemiesRemaining = enemies.Length;
-            Debug.Log($"Scéna {scene.name} načtena. Nepřátel: {enemiesRemaining}");
-        }
-        catch 
-        {
-            enemiesRemaining = 0;
-        }
-
-        GameObject foundPanel = GameObject.Find("PauseMenu");
-
-        if (foundPanel != null)
-        {
-            pauseMenuPanel = foundPanel;
-            pauseMenuPanel.SetActive(false);
-            Debug.Log("PauseMenu úspěšně nalezeno a skryto.");
-        }
-        else
-        {
-            Debug.LogWarning("LevelManager pořád nemůže najít PauseMenu. Zkontroluj jméno!");
-        }
-
-        Time.timeScale = 1f;
-        isPaused = false;
     }
 
     public void EnemyKilled()
@@ -177,8 +159,23 @@ public class LevelManager : MonoBehaviour
         // Uložíme si index levelu, který jsme právě dohráli
         lastLevelIndex = SceneManager.GetActiveScene().buildIndex;
 
-        Debug.Log($"Level {lastLevelIndex} hotov. Jdu do upgradu.");
-        SceneManager.LoadScene(upgradeSceneName);
+        if (isLastLevel)
+        {
+            if (winScreen != null)
+            {
+                winScreen.SetActive(true);
+            }
+            Time.timeScale = 0f;
+
+            if (PlayerStats.instance != null)
+            {
+                Destroy(PlayerStats.instance.gameObject);
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene(upgradeSceneName);
+        }
     }
 
     // TATO METODA JE OPRAVENÁ PROTI CYKLENÍ
@@ -227,7 +224,7 @@ public class LevelManager : MonoBehaviour
     public void ReturnToMainMenuScene()
     {
         // Ensure game is unpaused and timeScale reset
-        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
+        if (pauseMenu != null) pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
 

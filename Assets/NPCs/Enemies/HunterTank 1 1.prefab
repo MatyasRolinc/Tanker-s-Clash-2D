@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4892830041776715544}
   - component: {fileID: 6200157157920127574}
   - component: {fileID: 2335392585635337484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_1_A_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5737125036320004827, guid: 0cd9097f33ac9944b837bf29361f9284, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 7889238247388277780}
   - component: {fileID: 5243644823516845506}
   - component: {fileID: 6222406561414339423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyTurretHunter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 6376002387216656826, guid: 4ddaeeddffede1345865434b88df3b63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -211,13 +211,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54da29fc2b8b3434d8623f275cb533e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   firePoint: {fileID: 4023005116602303440}
   shellPrefab: {fileID: 1575945789213446590, guid: 2fda9f4097824b243b9b34d5b1b4f262, type: 3}
-  damage: 3
+  muzzleFlashPrefab: {fileID: 1241743387052546218, guid: e163978c9abe5b048b503141d9f53414, type: 3}
+  muzzleFlashDuration: 0.6
+  damage: 5
   shellSpeed: 8
-  rotationSpeed: 120
-  angleOffset: 0
+  rotationSpeed: 130
+  angleOffset: -90
   shootInterval: 5
 --- !u!1 &1028614676266098237
 GameObject:
@@ -231,7 +232,7 @@ GameObject:
   - component: {fileID: 5241506839584117871}
   - component: {fileID: 105973023011716739}
   - component: {fileID: 895962573430122168}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +281,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &105973023011716739
 MonoBehaviour:
@@ -334,7 +335,7 @@ GameObject:
   - component: {fileID: 1628884919298480048}
   - component: {fileID: 2023428848811576400}
   - component: {fileID: 25747283184469480}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +457,7 @@ GameObject:
   - component: {fileID: 1741352091691991362}
   - component: {fileID: 4548969349262470766}
   - component: {fileID: 4629533245740293089}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HunterTank 1 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -525,14 +526,14 @@ MonoBehaviour:
   stopDuration: 0.5
   rotationSpeed: 180
   health: 5
-  healthBar: {fileID: 0}
-  obstacleCheckDistance: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
+  healthBar: {fileID: 25747283184469480}
   allTrackAnimators:
   - {fileID: 4683531829642150377}
   - {fileID: 2335392585635337484}
+  obstacleCheckDistance: 5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!212 &1741352091691991362
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -646,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bbd86b6afde9340898e1cf33d6e3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardAmount: 350
+  rewardAmount: 150
 --- !u!1 &4664103990885094469
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +659,7 @@ GameObject:
   - component: {fileID: 1301724366051334105}
   - component: {fileID: 1157542684672841355}
   - component: {fileID: 4683531829642150377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Track_1_A_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +724,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5737125036320004827, guid: 0cd9097f33ac9944b837bf29361f9284, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -767,7 +768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 151890111253870065}
   - component: {fileID: 7972673941036961800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemyHunter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +835,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -5544665450184981665, guid: 172ad99e3db6d3048bdb7f4022d2988c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -857,7 +858,7 @@ GameObject:
   - component: {fileID: 3348876294870456174}
   - component: {fileID: 4790830518532705142}
   - component: {fileID: 2768819520796336299}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Backgground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,26 +2,25 @@ using UnityEngine;
 
 public class EnemyTurretScript : MonoBehaviour
 {
-    public Transform target;            // hráč (tank)
-    public Transform firePoint;         // odkud vystřelí (pokud null => this.transform)
+    private Transform target;            // hráč (tank)
+    public Transform firePoint;         
     public GameObject shellPrefab;
-    public int damage = 1; // kolik HP ubere tato věž
+    public GameObject muzzleFlashPrefab; 
+    public float muzzleFlashDuration = 0.6f;
+    public int damage = 1; 
     public float shellSpeed = 8f;
 
-    public float rotationSpeed = 120f;  // rychlost otáčení (°/s)
-    public float angleOffset = 0f;      // ruční posun úhlu
+    public float rotationSpeed = 120f; 
+    public float angleOffset = -90f;      
 
-    public float shootInterval = 5f;    // interval mezi výstřely (sekundy)
+    public float shootInterval = 5f;   
     private float nextFireTime = 0f;
 
     void Start()
     {
-        if (target == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player)
-                target = player.transform;
-        }
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+            target = player.transform;
 
         if (firePoint == null) firePoint = transform;
         nextFireTime = Time.time + Random.Range(0f, shootInterval);
@@ -73,6 +72,18 @@ public class EnemyTurretScript : MonoBehaviour
         if (rb != null)
             rb.linearVelocity = firePoint.up * shellSpeed;
 
+        PlayFireAnimation(firePoint);
         Destroy(shell, 8f);
+    }
+
+    public void PlayFireAnimation(Transform firePoint)
+    {
+        if (muzzleFlashPrefab != null && firePoint != null)
+        {
+            GameObject fx = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+            if (ps != null) ps.Play();
+            Destroy(fx, muzzleFlashDuration);
+        }
     }
 }

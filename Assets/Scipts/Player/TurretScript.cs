@@ -4,6 +4,8 @@ public class TurrentScript : MonoBehaviour
 {
     // kde se spawnují střely
     public GameObject TankShellPrefab;
+    public GameObject fireEffectPrefab;
+    public float fireEffectDuration = 0.5f;
     public Transform spawnPoint;
 
     // ruční posun úhlu (stejně jako u enemy)
@@ -52,29 +54,28 @@ public class TurrentScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Načtení vylepšených hodnot z PlayerStats
             float useReload = (stats != null) ? stats.reloadTime : 0.75f;
             float useShellSpeed = (stats != null) ? stats.shellSpeed : 10f;
 
-            // Kontrola cooldownu
             if (Time.time < nextFireTime) return;
 
             if (TankShellPrefab != null && spawnPoint != null)
             {
                 GameObject shell = Instantiate(TankShellPrefab, spawnPoint.position, spawnPoint.rotation);
                 Rigidbody2D rbShell = shell.GetComponent<Rigidbody2D>();
-                
-                // Oprava: shell.layer nastavujeme přes ID vrstvy pro lepší výkon
                 shell.layer = LayerMask.NameToLayer("Player");
 
                 if (rbShell != null)
                 {
-                    // Použijeme rychlost střely ze statistik
                     rbShell.linearVelocity = spawnPoint.up * useShellSpeed;
                 }
-            }
 
-            // Nastavení času pro další výstřel
+                if (fireEffectPrefab != null)
+                {
+                    GameObject effect = Instantiate(fireEffectPrefab, spawnPoint.position, spawnPoint.rotation);
+                    Destroy(effect, fireEffectDuration);
+                }
+            }
             nextFireTime = Time.time + useReload;
         }
     }

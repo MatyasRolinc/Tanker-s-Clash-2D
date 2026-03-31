@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5621768018084368006}
   - component: {fileID: 1454447049117721055}
-  - component: {fileID: 5351326812509042584}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -55,20 +54,3 @@ MonoBehaviour:
   shellSpeed: 10
   healthBar: {fileID: 0}
   moneyText: {fileID: 0}
---- !u!114 &5351326812509042584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7230906894333048396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4786da6a2ba8c84b9616f43ed30eb60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTag: Enemy
-  upgradeSceneName: UpgradeScene
-  pauseMenuPanel: {fileID: 0}
-  gameOverPanel: {fileID: 0}
-  enemiesRemaining: 0
